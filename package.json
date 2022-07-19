@@ -1,0 +1,29 @@
+{
+  "name": "hospital-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon Backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm start\" \"npm run client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.30.0",
+    "concurrently": "^7.2.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "express-fileupload": "^1.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.2",
+    "nodemon": "^2.0.18",
+    "react-data-table-component": "^7.5.2",
+    "twilio": "^3.78.0"
+  }
+}
