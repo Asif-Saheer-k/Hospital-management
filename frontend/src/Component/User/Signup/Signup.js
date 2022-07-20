@@ -208,7 +208,7 @@ function Signup() {
                   <div class="col-md-6">
                     <div class="form-group mt-2">
                       <input
-                        type="text"
+                        type="text"                         
                         class="form-control"
                         placeholder="Your Email *"
                         {...register("email", {

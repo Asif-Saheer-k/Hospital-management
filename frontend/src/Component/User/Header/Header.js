@@ -48,6 +48,11 @@ export const Header = () => {
   const LOGOUT = () => {
     localStorage.removeItem("userInfo");
   };
+
+  const viewDepartmets=(dept)=>{
+    navigate(`/view-doctor-department/${dept}`)
+
+  }
   return (
     <div>
       <header>
@@ -133,7 +138,7 @@ export const Header = () => {
                     {department.map((obj)=>{
                       return(
                       <li>
-                      <a class="dropdown-item" key={obj._i} >
+                      <a class="dropdown-item" key={obj._i} onClick={()=>{viewDepartmets(obj.Departments)}}>
                        {obj.Departments} 
                       </a>
                     </li>
@@ -147,7 +152,6 @@ export const Header = () => {
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
-                    href="doctor.html"
                     id="dropdown03"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -157,9 +161,9 @@ export const Header = () => {
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="dropdown03">
                     <li>
-                      <a class="dropdown-item" href="doctor.html">
+                      <Link to='/view-doctors' class="dropdown-item" >
                         Doctors
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a class="dropdown-item" href="doctor-single.html">

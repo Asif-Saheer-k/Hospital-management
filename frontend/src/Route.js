@@ -22,7 +22,9 @@ import About from './Component/User/About/About';
 import Services from './Component/User/Services/Services';
 import Register from './Component/Doctor/register/Register'
 import ViewDoctor from './Component/Admin/viewSingleDoctor/ViewDoctor'
+import ViewallDoctor from './Component/User/viewDoctor/ViewallDoctor';
 import Department from './Component/Admin/department/Department';
+import SingleDoctor from './Component/User/singleDoctor/SingleDoctor';
 
 function Router() {
   return (
@@ -36,8 +38,12 @@ function Router() {
       <Route path='/appoinment' element={[<Header/>,<Appoinment/>,<Footer/>]}/>
       <Route path='/about' element={[<Header/>,<About/>,<Footer/>]}/> 
       <Route path='/services' element={[<Header/>,<Services/>,<Footer/>]}/>
+      <Route path='/view-doctors' element={[<Header/>,<ViewallDoctor/>,<Footer/>]}/>
+      <Route path='/view-single-doctor/:id' element={[<Header/>,<SingleDoctor/>,<Footer/>]}/>
+      <Route path='/view-doctor-department/:departId' element={[<Header/>,<ViewallDoctor/>,<Footer/>]}/>
       
-
+       
+       
 
       <Route path='/admin' element={[<Login title="admin"/>]}/> 
       <Route path='/admin/adminHome' element={[<SideBar/>,<Dashboard/>]}/>

@@ -93,7 +93,7 @@ function AddDoctors() {
       const Name = data.Name;
       const About = data.about;
       const email = data.email;
-      const password = data.cPassword;
+      const password = data.password;
       const phone = data.PhoneNumber;
       const Qualification = data.Qualification;
       const address = data.address;
@@ -117,10 +117,10 @@ function AddDoctors() {
         };
         const { data } = await axios.post(
           "/doctor/register",
-          {
+          {         
             Name,
             email,
-            password,
+            password, 
             phone,
             Qualification,
             place,

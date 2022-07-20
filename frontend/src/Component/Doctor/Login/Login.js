@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "./Login.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
 function Login() {
+  const navigate=useNavigate()
   const [error, setError] = useState();
   const {
     register,
@@ -29,9 +31,13 @@ function Login() {
           password,
         },
         config
-      );
-    } catch (error) {
-      console.log(error);
+      )
+      localStorage.setItem("DoctInfo", JSON.stringify(doctor));
+
+      navigate('/doctors/doctors-home')
+    } catch (error) {   
+      setError("Not Verified")
+   
     }
   };
   return (
@@ -80,7 +86,7 @@ function Login() {
                 },
               })}
               onKeyUp={() => {
-                trigger("password");
+                trigger("password");  
               }}
             />
           </div>

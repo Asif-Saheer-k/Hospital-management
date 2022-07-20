@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const Doctor = require("../models/doctorModel");
 const User = require("../models/userModels");
 const generateToken = require("../utils/generateToken");
 const serviceSsid = "VA1fc8601062b890c4c88cc2b48cb6af2d";
@@ -101,5 +102,16 @@ const verifyotp = asyncHandler(async (req, res) => {
       }
     });
 });
+const viewDepartmetDoctor=asyncHandler(async(req,res)=>{
+  // const specailist =req.params.department;
+  console.log("fffffffffffffffffffffffffffff");
+  
+  const specailist = 'Neurologists';
+  const doctors = await Doctor.findOne({ specailist });
+  console.log(doctors,"hgfghjkl");   
 
-module.exports = { registerUser, verifyUser, verifyPhone, verifyotp };
+
+})          
+
+module.exports = { registerUser, verifyUser, verifyPhone, verifyotp,viewDepartmetDoctor };
+ 

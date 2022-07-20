@@ -39,7 +39,7 @@ const doctorSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: false,
+      required: true,
     },
     phone: {
       type: String,
@@ -71,13 +71,14 @@ doctorSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
-const salt = await bcrypt.genSaltSync(10);
-const password = await this.password;
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
 doctorSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
-}; 
+};
+
 
 const Doctor = mongoose.model("Doctor", doctorSchema);            
 module.exports = Doctor;

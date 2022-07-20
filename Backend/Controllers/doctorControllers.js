@@ -23,6 +23,7 @@ const addDoctors = asyncHandler(async (req, res) => {
     About,
   } = req.body;
  
+  console.log(req.body);
 
   const doctor = await Doctor.create({
     Name,
@@ -54,20 +55,21 @@ const verifyDoctor = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const DoctorDetails = await Doctor.findOne({ email });
 
-  console.log(DoctorDetails);
-  if(DoctorDetails.valid==true){
+
+  
   if (DoctorDetails && (await DoctorDetails.matchPassword(password))) {
+    if(DoctorDetails.valid==true){
     res.json({
       email: DoctorDetails.email,
       token: generateToken(DoctorDetails._id),
     });
   } else {
-    res.status(400);
-    throw new Error("Invalid Email and Password");
+    res.status(400)
+    throw new Error("Admin Not Verified")
   }
 }else{
-   res.status(400)
-   throw new Error("Admin Not Verified")
+  res.status(400);
+    throw new Error("Invalid Email or Password!");
 }
 });
 

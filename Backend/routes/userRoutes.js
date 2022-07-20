@@ -1,13 +1,18 @@
 const express = require("express");
-const { viewDepartment } = require("../Controllers/adminControllers");
 const router = express.Router();
-const { registerUser,verifyUser,verifyPhone,verifyotp } = require("../controllers/userControllers");
+const { viewDepartment, allDoctors, singleDoctor } = require("../Controllers/adminControllers");
+const { registerUser,verifyUser,verifyPhone,verifyotp,viewDepartmetDoctor } = require("../controllers/userControllers");
 
 router.route("/register").post(registerUser);
 router.route("/login").post(verifyUser)
 router.route('/phone-verify').post(verifyPhone)
 router.route('/otp-verification').post(verifyotp)
 router.route('/view-department').get(viewDepartment)
+router.route('/view-All-doctors').get(allDoctors)
+router.route('/view-single-doctor/:id').get(singleDoctor)
+router.route('/view-Department-doctors/:department').get(viewDepartmetDoctor)
+
+
 
 module.exports = router;      
    
