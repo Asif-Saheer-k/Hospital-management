@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate,useParams} from 'react-router-dom'
+import { useNavigate, useParams } from "react-router-dom";
 import "../Style/css/style.css";
 import "../Style/plugins/slick-carousel/slick/slick-theme.css";
 import "../Style/plugins/slick-carousel/slick/slick.css";
@@ -7,60 +7,53 @@ import "../Style/plugins/icofont/icofont.min.css";
 import "../Style/plugins/bootstrap/css/bootstrap.min.css";
 import axios from "axios";
 function ViewallDoctor() {
-	const id=useParams()
-	console.log("idddd",id);
-	const departmentId=id.departId
-	if(departmentId){
-  console.log("success");
-	}else{
-		console.log("faile");
+  const [load, setLoad] = useState(false);
+  const id = useParams("");
+  console.log("idddd", id);
+  var departmentId = id.departId;
 
-	}
-	const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const [doctors, setDoctor] = useState([]);
-  
-  const [department,setDepartment]=useState([])
+
+  const [department, setDepartment] = useState([]);
 
   useEffect(() => {
-	if(departmentId===undefined){
-		console.log("dfsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    (async function () {
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        const { data } = await axios.get("/user/view-All-doctors", config);
-        console.log(data);
-        setDoctor(data);
-		
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-}else{
-	console.log("llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
-	(async function () {
-		try {
-		  const config = {
-			headers: {
-			  "Content-type": "application/json",
-			},
-		  };
-		  const { data } = await axios.get(`/user/view-Department-doctors/${departmentId}`, config);
-		  setDoctor(data);
-		  
-		} catch (error) {
-		  console.log(error);
-		}
-})();
-
-}
-  },[]);
-  
-
+    if (departmentId === undefined) {
+      console.log("dfsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      (async function () {
+        try {
+          const config = {
+            headers: {
+              "Content-type": "application/json",
+            },
+          };
+          const { data } = await axios.get("/user/view-All-doctors", config);
+          console.log(data);
+          setDoctor(data);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    } else {
+      (async function () {
+        try {
+          const config = {
+            headers: {
+              "Content-type": "application/json",
+            },
+          };
+          const { data } = await axios.get(
+            `/user/view-Department-doctors/${departmentId}`,
+            config
+          );
+          setDoctor(data);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [departmentId]);
 
   useEffect(() => {
     (async function () {
@@ -77,13 +70,27 @@ function ViewallDoctor() {
         console.log(error);
       }
     })();
-  },[]);
-  const viewSingleDoctor=async(id)=>{
-	navigate(`/view-single-doctor/${id}`)
+  }, []);
+  const viewSingleDoctor = async (id) => {
+    navigate(`/view-single-doctor/${id}`);
+  };
 
-  }     
-
-  
+  const changeDepartment = async (id) => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.get(
+        `/user/view-Department-doctors/${id}`,
+        config
+      );
+      setDoctor(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <section class="page-title bg-1">
@@ -132,51 +139,59 @@ function ViewallDoctor() {
                 />
                 All Department
               </label>
-			  {department.map((obj)=>{
-				return(
-
-					<label class="btn ">
-						
-					<input type="radio" name="shuffle-filter" value="cat1" key={obj._id}/>
-					{obj.Departments}
-				  </label>
-
-				)
-			  })}
+              {department.map((obj) => {
+                return (
+                  <label class="btn ">
+                    <input
+                      type="radio"
+                      name="shuffle-filter"
+                      value="cat1"
+                      key={obj._id}
+                      onClick={() => {
+                        changeDepartment(obj.Departments);
+                      }}
+                    />
+                    {obj.Departments}
+                  </label>
+                );
+              })}
             </div>
           </div>
 
           <div class="row shuffle-wrapper portfolio-gallery">
-			{doctors.map((obj)=>{
-				return(
-					<div
-              class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item"
-              data-groups='["cat1","cat2"]'
-             key={obj._id}>
-              <div class="position-relative doctor-inner-box">
-                <div class="doctor-profile">    
-                  <div class="doctor-img">
-                    <img
-                      src={obj.url}
-                      alt="doctor-image"
-                      class="img-fluid w-100"
-                    />
-				
+            {doctors.map((obj) => {
+              return (
+                <div
+                  class="col-lg-3 col-sm-6 col-md-6 mb-4 shuffle-item"
+                  data-groups='["cat1","cat2"]'
+                  key={obj._id}
+                >
+                  <div class="position-relative doctor-inner-box">
+                    <div class="doctor-profile">
+                      <div class="doctor-img">
+                        <img
+                          src={obj.url}
+                          alt="doctor-image"
+                          class="img-fluid w-100"
+                        />
+                      </div>
+                    </div>
+                    <div class="content mt-3">
+                      <h4 class="mb-0">
+                        <a
+                          onClick={() => {
+                            viewSingleDoctor(obj._id);
+                          }}
+                        >
+                          {obj.Name}
+                        </a>
+                      </h4>
+                      <p>{obj.specailist}</p>
+                    </div>
                   </div>
                 </div>
-                <div class="content mt-3">
-                  <h4 class="mb-0">
-                    <a onClick={()=>{viewSingleDoctor(obj._id)}}>{obj.Name}</a>
-                  </h4>
-                  <p>{obj.specailist}</p>
-                </div>
-              </div>
-            </div>
-
-
-				)
-			})}
-            
+              );
+            })}
           </div>
         </div>
       </section>
@@ -199,9 +214,7 @@ function ViewallDoctor() {
           </div>
         </div>
       </section>
-      <div className="container">
-      
-      </div>
+      <div className="container"></div>
     </>
   );
 }

@@ -9,19 +9,24 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useSelector} from "react-redux";
+
 
 function Department() {
   const [Department, setDepartment] = useState([]);
   const [load, setLoad] = useState(null);
 
   const navigate = useNavigate();
+  const admin = useSelector((state) => state.admin.value);
+
+   
   useEffect(() => {
     (async function () {
-      console.log("ffffffffffffffffffffffffffffffffffffffffffffffffff");
       try {
         const config = {
           headers: {
             "Content-type": "application/json",
+             "auth-token":admin.token
           },
         };
 
@@ -52,6 +57,7 @@ function Department() {
       const config = {
         headers: {
           "Content-type": "application/json",
+          "auth-token":admin.token
         },
       };
       const data = await axios.post(
@@ -88,6 +94,7 @@ function Department() {
       const config = {
         headers: {
           "Content-type": "application/json",
+          "auth-token":admin.token
         },
       };
 
@@ -127,11 +134,7 @@ function Department() {
                 placeholder="Enter Department"
                 style={{ width: "100%" }}
                 {...register("department", {
-                  required: "department is required",
-                  pattern: {
-                    value: /^[a-z]+\s[a-z ]+$/i,
-                    message: "invalid department",
-                  },
+                  required: "department is required"
                 })}
                 onKeyUp={() => {
                   trigger("department");
@@ -188,7 +191,7 @@ function Department() {
                   <TableCell align="right">{row.protein}</TableCell> */}
                 </TableRow>
               ))}
-            </TableBody>
+            </TableBody>  
           </Table>
         </TableContainer>
       </div>

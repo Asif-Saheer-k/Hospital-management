@@ -16,15 +16,16 @@ import User from './Component/Admin/users/User';
 import Doctors from './Component/Admin/Doctors/Doctors';
 import AddDoctors from './Component/Doctor/register/Register';
 import Footer from './Component/User/Footer/Footer'
-import DoctorSidebar from './Component/Doctor/Sidebar/Sidebar'
+
 import Appoinment from './Component/User/Appoinment/Appoinment';
 import About from './Component/User/About/About';
 import Services from './Component/User/Services/Services';
-import Register from './Component/Doctor/register/Register'
 import ViewDoctor from './Component/Admin/viewSingleDoctor/ViewDoctor'
 import ViewallDoctor from './Component/User/viewDoctor/ViewallDoctor';
 import Department from './Component/Admin/department/Department';
 import SingleDoctor from './Component/User/singleDoctor/SingleDoctor';
+import DoctorHome from './Component/Doctor/pages/home/DoctorHome';
+import ProfilePage from './Component/Doctor/pages/profilePage/ProfilePage';
 
 function Router() {
   return (
@@ -55,10 +56,8 @@ function Router() {
 
       <Route path='/register' element={[< AddDoctors/>]}/>
       <Route path='/doctor' element={[<DoctorLogin/>]}/>
-      <Route path='/doctors/doctors-home' element={[<DoctorSidebar/>]}/> 
-
-      
-      
+      <Route path='/doctors/doctors-home' element={[<DoctorHome/>]}/>
+      <Route path='/doctors/view-profile' element={[<ProfilePage/>]}/>      
      
 
     </Routes> 

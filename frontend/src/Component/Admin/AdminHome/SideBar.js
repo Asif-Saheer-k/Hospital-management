@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import "./SideBar.css";
 import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { logInAdmin } from "../../Redux/Slices/adminData";
+import { useDispatch } from "react-redux";
 
 function SideBar() {
+  const dispatch = useDispatch();
   const navigator = useNavigate();
+  const admin = useSelector((state) => state.admin.value);
+  console.log(admin, "admubn");
   useEffect(() => {
-    const admin = localStorage.getItem("adminInfo");
     if (!admin) {
       navigator("/admin");
     }
@@ -45,8 +50,7 @@ function SideBar() {
 
   const Logout = () => {
     const user = window.alert("are you want logout");
-
-    localStorage.removeItem("adminInfo");
+    dispatch(logInAdmin(null));
     navigator("/admin");
   };
 
@@ -65,41 +69,44 @@ function SideBar() {
           <ul class="nav-links">
             <li>
               <Link className="text-decoration-none" to="/admin/adminHome">
-                <i class="uil uil-hospital" style={{color:"white"}}></i>
+                <i class="uil uil-hospital" style={{ color: "white" }}></i>
                 <span class="link-name">Dahsboard</span>
               </Link>
             </li>
             <li>
               <Link className="text-decoration-none" to="/admin/all-users">
-                <i class="uil uil-user" style={{color:"white"}}></i>
+                <i class="uil uil-user" style={{ color: "white" }}></i>
                 <span class="link-name">Users</span>
               </Link>
             </li>
             <li>
               <Link className="text-decoration-none" to="/admin/all-doctors">
-                <i class="uil uil-stethoscope" style={{color:"white"}}></i>
+                <i class="uil uil-stethoscope" style={{ color: "white" }}></i>
                 <span class="link-name">Doctors</span>
               </Link>
             </li>
             <li>
               <a href="#">
-                <i class="uil uil-pen"  style={{color:"whitesmoke"}}></i>
+                <i class="uil uil-pen" style={{ color: "whitesmoke" }}></i>
                 <span class="link-name">Patient</span>
               </a>
             </li>
             <li>
               <a href="#">
-                <i class="uil uil-book" style={{color:"white"}}></i>
+                <i class="uil uil-book" style={{ color: "white" }}></i>
                 <span class="link-name">Appointment</span>
               </a>
             </li>
             <li>
-              <Link className="text-decoration-none" to="/admin/view-Department">
-                <i class="uil uil-file-plus-alt" style={{color:"white"}}></i>
+              <Link
+                className="text-decoration-none"
+                to="/admin/view-Department"
+              >
+                <i class="uil uil-file-plus-alt" style={{ color: "white" }}></i>
                 <span class="link-name">Department</span>
               </Link>
             </li>
-            
+
             {/* <li><a href="#">
                 <i class="uil uil-share"></i>
                 <span class="link-name">Share</span>
@@ -109,7 +116,7 @@ function SideBar() {
           <ul class="logout-mode">
             <li>
               <a href="#">
-                <i class="uil uil-signout" style={{color:"white"}}></i>
+                <i class="uil uil-signout" style={{ color: "white" }}></i>
                 <span class="link-name" onClick={Logout}>
                   Logout
                 </span>
@@ -141,9 +148,6 @@ function SideBar() {
     </div>
     </section> */}
       </div>
-
-
-
     </div>
   );
 }

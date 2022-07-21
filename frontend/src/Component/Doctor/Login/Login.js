@@ -3,8 +3,11 @@ import "./Login.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import {logInDoctor} from '../../Redux/Slices/doctorData' 
 
 function Login() {
+  const dispatch=useDispatch()
   const navigate=useNavigate()
   const [error, setError] = useState();
   const {
@@ -24,16 +27,18 @@ function Login() {
         },
       };
 
-      const { doctor } = await axios.post(
+      const  {data}  = await axios.post(
         "/doctor/login",
         {
           email,
           password,
         },
         config
-      )
-      localStorage.setItem("DoctInfo", JSON.stringify(doctor));
+      )     
 
+      
+      dispatch(logInDoctor(data))        
+ 
       navigate('/doctors/doctors-home')
     } catch (error) {   
       setError("Not Verified")
@@ -65,7 +70,7 @@ function Login() {
                 },
               })}
               onKeyUp={() => {
-                trigger("email");
+                trigger("email");   
               }}
             />
           </div>

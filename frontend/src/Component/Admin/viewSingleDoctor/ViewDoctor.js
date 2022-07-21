@@ -1,19 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { useSelector} from "react-redux";
 
 function ViewDoctor() {
   const [doctorDetails, setDoctorDetails] = useState({});
   const [time, setTime] = useState([]);
   const doctorId = useParams();
   const navigate = useNavigate();
-  console.log(doctorId);
+  const admin = useSelector((state) => state.admin.value);
   useEffect(() => {
     (async function () {
       try {
         const config = {
           headers: {
             "Content-type": "application/json",
+            "auth-token":admin.token
           },
         };
         const { data } = await axios.get(
@@ -75,6 +77,7 @@ function ViewDoctor() {
       const config = {
         headers: {
           "Content-type": "appplication/json",
+          "auth-token":admin.token
         },
       };
       const { data } = await axios.post(`/admin/doctor-status/${id}`, config);
@@ -90,6 +93,7 @@ function ViewDoctor() {
       const config = {
         headers: {
           "Content-type": "application/json",
+          "auth-token":admin.token
         },
       };
       const { data } = await axios.post(`/admin/delete-doctors/${id}`, config);

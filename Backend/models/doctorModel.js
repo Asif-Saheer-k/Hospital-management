@@ -26,7 +26,7 @@ const doctorSchema = mongoose.Schema(
     },
     place:{
       type:String,
-      require:true,
+      require:false,
 
     },
     url: {

@@ -186,12 +186,12 @@ function AddDoctors() {
       <div class="top" style={{ backgroundColor: "#328090" }}>
         <i class="uil uil-bars sidebar-toggle"></i>
 
-        <div class="search-box" style={{ backgroundColor: "white" }}>
+        {/* <div class="search-box" style={{ backgroundColor: "white" }}>
           <i class="uil uil-search"></i>
           <input type="text" placeholder="Search here..." />
         </div>
 
-        <img src="images/profile.jpg" alt="" />
+        <img src="images/profile.jpg" alt="" /> */}
       </div>
       <div className="text-center" style={{ marginTop: "10%" }}>
         <h4>Enter Doctor Details</h4>

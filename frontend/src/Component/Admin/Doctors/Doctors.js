@@ -6,12 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
 import Modal from "@mui/material/Modal";
 import axios from "axios";
-
+import { useSelector} from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { border } from "@mui/system";
+
 
 export default function BasicTable() {
   const [userDeatails, setuserDetails] = useState([]);
@@ -20,15 +19,15 @@ export default function BasicTable() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
+  const admin = useSelector((state) => state.admin.value);
   useEffect(() => {
-    const admin = localStorage.getItem("adminInfo");
-    const myJSON = JSON.parse(admin);
+
     (async function () {
       try {
         const config = {
           headers: {
             "Content-type": "application/json",
-            "auth-token": myJSON.token,
+            "auth-token": admin.token,
           },
         };
 
@@ -59,6 +58,8 @@ export default function BasicTable() {
       const config = {
         headers: {
           "Content-type": "application/json",
+          "auth-token": admin.token,
+       
         },
       };
       const deleteDoctor = await axios.post(

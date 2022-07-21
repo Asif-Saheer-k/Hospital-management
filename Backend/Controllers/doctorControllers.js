@@ -3,7 +3,7 @@ const Doctor = require("../models/doctorModel");
 const generateToken = require("../utils/generateToken");
 
 const addDoctors = asyncHandler(async (req, res) => {
-  const date = new Date().toLocaleTimeString()
+  const date = new Date().toLocaleTimeString();
 
   const valid = false;
 
@@ -22,7 +22,7 @@ const addDoctors = asyncHandler(async (req, res) => {
     url,
     About,
   } = req.body;
- 
+
   console.log(req.body);
 
   const doctor = await Doctor.create({
@@ -55,22 +55,30 @@ const verifyDoctor = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const DoctorDetails = await Doctor.findOne({ email });
 
-
-  
   if (DoctorDetails && (await DoctorDetails.matchPassword(password))) {
-    if(DoctorDetails.valid==true){
-    res.json({
-      email: DoctorDetails.email,
-      token: generateToken(DoctorDetails._id),
-    });
+    if (DoctorDetails.valid == true) {
+      res.status(200).json({
+        url: DoctorDetails.url,
+        email: DoctorDetails.email,
+        token: generateToken(DoctorDetails._id),
+        Name: DoctorDetails.Name,
+        eamil: DoctorDetails.email,
+        addres: DoctorDetails.address,
+        Qualification: DoctorDetails.Qualification,
+        specailist: DoctorDetails.specailist,
+        place: DoctorDetails.place,
+        About: DoctorDetails.About,
+        Phone: DoctorDetails.phone,
+        time: DoctorDetails.time,
+      });
+    } else {
+      res.status(400);
+      throw new Error("Admin Not Verified");
+    }
   } else {
-    res.status(400)
-    throw new Error("Admin Not Verified")
-  }
-}else{
-  res.status(400);
+    res.status(400);
     throw new Error("Invalid Email or Password!");
-}
+  }
 });
 
 module.exports = { verifyDoctor, addDoctors };

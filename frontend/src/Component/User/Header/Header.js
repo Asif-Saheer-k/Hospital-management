@@ -5,28 +5,30 @@ import "../Style/plugins/slick-carousel/slick/slick-theme.css";
 import "../Style/plugins/slick-carousel/slick/slick.css";
 import "../Style/plugins/icofont/icofont.min.css";
 import "../Style/plugins/bootstrap/css/bootstrap.min.css";
-import axios from'axios'
-
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logInUser } from "../../Redux/Slices/userData";
 
 export const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate({});
   const [userInfo, setuserDetails] = useState("");
-  const [department,setDepartment] =useState([])
-
+  const [department, setDepartment] = useState([]);
+  const user= useSelector((state) => state.user.value);
   useEffect(() => {
-    const user = localStorage.getItem("userInfo");
     if (user) {
-      const json = JSON.parse(user);
-      const name = json.name;
-      setuserDetails(name);
-      console.log(name, "fdfdf");
+      
+      // console.log(user);
+      // const json = JSON.parse(user);
+      // const name = json.name;
+      setuserDetails(user.name);
+      // console.log(name, "fdfdf");
     }
   });
 
-
-  useEffect(()=>{
+  useEffect(() => {
     (async function () {
-      console.log("ffffffffffffffffffffffffffffffffffffffffffffffffff");
       try {
         const config = {
           headers: {
@@ -34,25 +36,23 @@ export const Header = () => {
           },
         };
         const { data } = await axios.get("/user/view-department", config);
-        console.log(data);
-        console.log("ddfdfdf", data);
+
         setDepartment(data);
       } catch (error) {
         console.log(error);
       }
     })();
-
-  },[])
-  console.log("Deoapa",department);
+  }, []);
 
   const LOGOUT = () => {
-    localStorage.removeItem("userInfo");
+    dispatch(logInUser(null));
   };
 
-  const viewDepartmets=(dept)=>{
-    navigate(`/view-doctor-department/${dept}`)
+  const viewDepartmets = (dept) => {
+    navigate(`/view-doctor-department/${dept}`);
+  };
+  const daata = useSelector((state) => state.user.value);
 
-  }
   return (
     <div>
       <header>
@@ -108,7 +108,7 @@ export const Header = () => {
             <div class="collapse navbar-collapse" id="navbarmain">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                <Link class="nav-link" to="/">
+                  <Link class="nav-link" to="/">
                     Home
                   </Link>
                 </li>
@@ -118,7 +118,7 @@ export const Header = () => {
                   </Link>
                 </li>
                 <li class="nav-item">
-                <Link class="nav-link" to="/services">
+                  <Link class="nav-link" to="/services">
                     Services
                   </Link>
                 </li>
@@ -126,7 +126,6 @@ export const Header = () => {
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
-                   
                     id="dropdown02"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -135,17 +134,21 @@ export const Header = () => {
                     Department
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                    {department.map((obj)=>{
-                      return(
-                      <li>
-                      <a class="dropdown-item" key={obj._i} onClick={()=>{viewDepartmets(obj.Departments)}}>
-                       {obj.Departments} 
-                      </a>
-                    </li>
-                      )
-
+                    {department.map((obj) => {
+                      return (
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            key={obj._i}
+                            onClick={() => {
+                              viewDepartmets(obj.Departments);
+                            }}
+                          >
+                            {obj.Departments}
+                          </a>
+                        </li>
+                      );
                     })}
-                    
                   </ul>
                 </li>
 
@@ -161,20 +164,18 @@ export const Header = () => {
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="dropdown03">
                     <li>
-                      <Link to='/view-doctors' class="dropdown-item" >
+                      <Link to="/view-doctors" class="dropdown-item">
                         Doctors
                       </Link>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="doctor-single.html">
-                        Doctor Single
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="appoinment.html">
-                        Appoinment
-                      </a>
-                    </li>
+                
+                    {/* <li>
+                      {userInfo &&
+                      <Link to='' class="dropdown-item">
+                      View Appoinment
+                      </Link>
+                         }
+                    </li> */}
                   </ul>
                 </li>
 

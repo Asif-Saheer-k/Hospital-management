@@ -103,15 +103,21 @@ const verifyotp = asyncHandler(async (req, res) => {
     });
 });
 const viewDepartmetDoctor=asyncHandler(async(req,res)=>{
-  // const specailist =req.params.department;
-  console.log("fffffffffffffffffffffffffffff");
-  
-  const specailist = 'Neurologists';
-  const doctors = await Doctor.findOne({ specailist });
-  console.log(doctors,"hgfghjkl");   
+  const specailist =req.params.department;
 
+
+
+  const doctors = await Doctor.find({specailist});
+  console.log(doctors,"hgfghjkl");   
+  if(doctors){
+    res.status(200).json(doctors)
+  } else{
+    res.status(400)
+    throw new Error("Somthing went ")
+  }                                          
+          
 
 })          
 
 module.exports = { registerUser, verifyUser, verifyPhone, verifyotp,viewDepartmetDoctor };
- 
+         

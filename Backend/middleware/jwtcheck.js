@@ -8,12 +8,12 @@ function verifyToken(req,res, next) {
     res.status(401).send({ erorr: "no token provided" });
   }
   let token = authHeader;
-  Jwt.verify(token, process.env.JWT_SECRET, (err,res) => {
-    if (err) {
+  Jwt.verify(token,process.env.JWT_SECRET, (err,res) => {
+    if (err) {    
      res.status(500).send("Authentication Failed")
     } else {
-      next();
+      next();    
     }
   });     
-}
+}                                       
 module.exports = { verifyToken };

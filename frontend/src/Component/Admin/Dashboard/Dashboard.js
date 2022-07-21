@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate} from "react-router-dom";
+import { useSelector} from "react-redux";
 
 function Dashboard() {
+  const admin = useSelector((state) => state.admin.value);
   const [doctor, setDoctors] = useState([]);
   const navigate = useNavigate();
   var count = 0;
@@ -12,7 +14,7 @@ function Dashboard() {
         const config = {
           headers: {
             "Content-type": "application/json",
-            // "auth-token":myJSON.token
+            "auth-token":admin.token
           },
         };
 
@@ -94,13 +96,13 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div class="dash-content">
+        <div class="dash-content"> 
           <div class="overview">
             <div class="title">
               <i class="uil uil-tachometer-fast-alt"></i>
               <span class="text">Dashboard</span>
             </div>
-
+        
             <div class="boxes">
               <div class="box box1">
                 <i class="fa-solid fa-user-group"></i>

@@ -3,31 +3,34 @@ import "./Login.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import {useDispatch} from 'react-redux'
+import {logInUser} from '../../Redux/Slices/userData'
+import {logInAdmin} from '../../Redux/Slices/adminData' 
+import {useSelector}  from 'react-redux'
 
 function Login(props) {
+  const dispatch=useDispatch()
   const [error, setError] = useState();
   const [who, setWho] = useState();
   const [user, setUser] = useState("");
-  console.log("prps", props.title);
 
   const navigate = useNavigate();
-
+  const userInfo = useSelector((state) => state.user.value);
+  const admin= useSelector((state) =>state.admin.value);
   useEffect(() => {
     if (props.title == "user") {
-      const userInfo = localStorage.getItem("userInfo");
-      if (userInfo) {
-        navigate("/");
+      if(userInfo){
+        navigate('/')
       }
-    } else {
-      const adminInfo = localStorage.getItem("adminInfo");
-      if (adminInfo) {
+    } else { 
+      if (admin) { 
         navigate("/admin/adminHome");
       }
     }
   }, []);
 
   const {
-    register,
+    register,     
     handleSubmit,
     trigger,
     formState: { errors },
@@ -53,12 +56,11 @@ function Login(props) {
           "/user/login",
           {
             email,
-            password,
+            password,      
           },
           config
         );
-        localStorage.setItem("userInfo", JSON.stringify(data));
-        console.log("hoi");
+        dispatch(logInUser(data))
 
         navigate("/");
         console.log(data);
@@ -82,8 +84,7 @@ function Login(props) {
           },
           config
         );
-        console.log(data, "admin");
-        localStorage.setItem("adminInfo", JSON.stringify(data));
+        dispatch(logInAdmin(data))
         navigate("/admin/adminHome");
       } catch (error) {
         setError("Invalid Email Password");
