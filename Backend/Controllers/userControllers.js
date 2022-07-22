@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Doctor = require("../models/doctorModel");
+const Patient = require("../models/patientModel");
 const User = require("../models/userModels");
 const generateToken = require("../utils/generateToken");
 const serviceSsid = "VA1fc8601062b890c4c88cc2b48cb6af2d";
@@ -117,7 +118,35 @@ const viewDepartmetDoctor=asyncHandler(async(req,res)=>{
   }                                          
           
 
-})          
+})      
+const addPatient=asyncHandler(async(req,res)=>{
+  console.log(req.body);
+  const {name,phone,message,date,selectedTime,doctorId,userId}=req.body
 
-module.exports = { registerUser, verifyUser, verifyPhone, verifyotp,viewDepartmetDoctor };
+  //Today
+  // const day=new Date()  
+  // console.log(day.toLocaleDateString('en-CA'));
+
+  const patients=await Patient.create({
+    name,
+    phone,
+    message,
+    date,
+    selectedTime,
+    doctorId,
+    userId,
+
+  })
+  if(patients){
+    res.status(200).json(patients)
+  }else{
+    res.status(400)
+    throw new Error("invalid Deatials")
+  }
+
+
+})
+
+
+module.exports = { registerUser, verifyUser, verifyPhone, verifyotp,viewDepartmetDoctor,addPatient };
          
