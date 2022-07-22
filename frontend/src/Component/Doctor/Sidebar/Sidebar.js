@@ -45,8 +45,15 @@ function Sidebar() {
             <span>Dashboar</span>
           </Link>
         </li>
+        <li class="nav-item active">
+          <Link to='/doctors/doctors-home' class="nav-link" >
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>All Appoinment</span>
+          </Link>
+        </li>
 
-        <hr class="sidebar-divider" />
+        {/* <hr class="sidebar-divider" />
+        
 
         <div class="sidebar-heading">Interface</div>
 
@@ -78,9 +85,9 @@ function Sidebar() {
               </a>
             </div>
           </div>
-        </li>
+        </li> */}
 
-        <li class="nav-item">
+        {/* <li class="nav-item">
           <a
             class="nav-link collapsed"
             href="#"
@@ -159,8 +166,8 @@ function Sidebar() {
               </a>
             </div>
           </div>
-        </li>
-
+        </li> */}
+{/* 
         <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
@@ -173,15 +180,15 @@ function Sidebar() {
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span>
           </a>
-        </li>
+        </li> */}
 
         <hr class="sidebar-divider d-none d-md-block" />
 
-        <div class="text-center d-none d-md-inline">
+        {/* <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+        </div> */}
 
-        <div class="sidebar-card d-none d-lg-flex">
+        {/* <div class="sidebar-card d-none d-lg-flex">
           <img
             class="sidebar-card-illustration mb-2"
             src="img/undraw_rocket.svg"
@@ -197,7 +204,7 @@ function Sidebar() {
           >
             Upgrade to Pro!
           </a>
-        </div>
+        </div> */}
       </ul>
 
   

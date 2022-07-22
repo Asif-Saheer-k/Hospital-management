@@ -26,6 +26,7 @@ import Department from './Component/Admin/department/Department';
 import SingleDoctor from './Component/User/singleDoctor/SingleDoctor';
 import DoctorHome from './Component/Doctor/pages/home/DoctorHome';
 import ProfilePage from './Component/Doctor/pages/profilePage/ProfilePage';
+import Allappointment from './Component/Doctor/pages/allAppointment/Allappointment';
 
 function Router() {
   return (
@@ -57,7 +58,8 @@ function Router() {
       <Route path='/register' element={[< AddDoctors/>]}/>
       <Route path='/doctor' element={[<DoctorLogin/>]}/>
       <Route path='/doctors/doctors-home' element={[<DoctorHome/>]}/>
-      <Route path='/doctors/view-profile' element={[<ProfilePage/>]}/>      
+      <Route path='/doctors/view-profile' element={[<ProfilePage/>]}/> 
+      <Route path= '/doctors/view-all-appoinment' element={[<Allappointment/>]} />   
      
 
     </Routes> 

@@ -101,13 +101,13 @@ function AddDoctors() {
       const specailist = currency;
       const Day = days;
       const time = [
-        { Mon: monday },
-        { Tus: tusday },
-        { wen: wednesday },
-        { thur: thursday },
-        { fri: friday },
-        { sta: saturday },
-        { sund: sunday },
+        { Time: monday ,Day:"Monday"},
+        { Time: tusday,Day:"Tuesday"},
+        { Time: wednesday,Day:"Wednesday"},
+        { Time: thursday ,Day:"Thurdsday"},
+        { Time: friday,Day:"Friday"},
+        { Time: saturday ,Day:"Saturday"},
+        { Time: sunday,Day:"Sunday" },
       ];
       try {
         const config = {
@@ -548,11 +548,11 @@ function AddDoctors() {
                       setMonday(e.target.value);
                     }}
                   >
-                    <option value="9-11">9-11 (am)</option>
-                    <option value="11-01">11-01 (am-pm)</option>
-                    <option value="01-03">01-03 (pm)</option>
-                    <option value="03-05">03-05 (pm)</option>
-                    <option value="05-08">05-08 (pm)</option>
+                    <option value="9-11 (am)">9-11(am)</option>
+                    <option value="11-01 (am-pm)">11-01 (am-pm)</option>
+                    <option value="01-03 (pm)">01-03 (pm)</option>
+                    <option value="03-05 (pm)">03-05 (pm)</option>
+                    <option value="05-08 (pm)">05-08 (pm)</option>
                   </select>
 
                   <select
@@ -563,11 +563,11 @@ function AddDoctors() {
                       setTusday(e.target.value);
                     }}
                   >
-                    <option value="9-11">9-11 (am)</option>
-                    <option value="11-01">11-01 (am-pm)</option>
-                    <option value="01-03">01-03 (pm)</option>
-                    <option value="03-05">03-05 (pm)</option>
-                    <option value="05-08">05-08 (pm)</option>
+                   <option value="9-11 (am)">9-11(am)</option>
+                    <option value="11-01 (am-pm)">11-01 (am-pm)</option>
+                    <option value="01-03 (pm)">01-03 (pm)</option>
+                    <option value="03-05 (pm)">03-05 (pm)</option>
+                    <option value="05-08 (pm)">05-08 (pm)</option>
                   </select>
 
                   <select
@@ -578,11 +578,11 @@ function AddDoctors() {
                       setWednesday(e.target.value);
                     }}
                   >
-                    <option value="9-11">9-11 (am)</option>
-                    <option value="11-01">11-01 (am-pm)</option>
-                    <option value="01-03">01-03 (pm)</option>
-                    <option value="03-05">03-05 (pm)</option>
-                    <option value="05-08">05-08 (pm)</option>
+                    <option value="9-11 (am)">9-11(am)</option>
+                    <option value="11-01 (am-pm)">11-01 (am-pm)</option>
+                    <option value="01-03 (pm)">01-03 (pm)</option>
+                    <option value="03-05 (pm)">03-05 (pm)</option>
+                    <option value="05-08 (pm)">05-08 (pm)</option>
                   </select>
 
                   <select
@@ -593,11 +593,11 @@ function AddDoctors() {
                       setThursday(e.target.value);
                     }}
                   >
-                    <option value="9-11">9-11 (am)</option>
-                    <option value="11-01">11-01 (am-pm)</option>
-                    <option value="01-03">01-03 (pm)</option>
-                    <option value="03-05">03-05 (pm)</option>
-                    <option value="05-08">05-08 (pm)</option>
+                  <option value="9-11 (am)">9-11(am)</option>
+                    <option value="11-01 (am-pm)">11-01 (am-pm)</option>
+                    <option value="01-03 (pm)">01-03 (pm)</option>
+                    <option value="03-05 (pm)">03-05 (pm)</option>
+                    <option value="05-08 (pm)">05-08 (pm)</option>
                   </select>
 
                   <select
@@ -608,11 +608,11 @@ function AddDoctors() {
                       setFriday(e.target.value);
                     }}
                   >
-                    <option value="9-11">9-11 (am)</option>
-                    <option value="11-01">11-01 (am-pm)</option>
-                    <option value="01-03">01-03 (pm)</option>
-                    <option value="03-05">03-05 (pm)</option>
-                    <option value="05-08">05-08 (pm)</option>
+                   <option value="9-11 (am)">9-11(am)</option>
+                    <option value="11-01 (am-pm)">11-01 (am-pm)</option>
+                    <option value="01-03 (pm)">01-03 (pm)</option>
+                    <option value="03-05 (pm)">03-05 (pm)</option>
+                    <option value="05-08 (pm)">05-08 (pm)</option>
                   </select>
 
                   <select
@@ -623,11 +623,11 @@ function AddDoctors() {
                       setSaturday(e.target.value);
                     }}
                   >
-                    <option value="9-11">9-11 (am)</option>
-                    <option value="11-01">11-01 (am-pm)</option>
-                    <option value="01-03">01-03 (pm)</option>
-                    <option value="03-05">03-05 (pm)</option>
-                    <option value="05-08">05-08 (pm)</option>
+                    <option value="9-11 (am)">9-11(am)</option>
+                    <option value="11-01 (am-pm)">11-01 (am-pm)</option>
+                    <option value="01-03 (pm)">01-03 (pm)</option>
+                    <option value="03-05 (pm)">03-05 (pm)</option>
+                    <option value="05-08 (pm)">05-08 (pm)</option>
                   </select>
 
                   <select
@@ -638,11 +638,11 @@ function AddDoctors() {
                       setSunday(e.target.value);
                     }}
                   >
-                    <option value="9-11">9-11 (am)</option>
-                    <option value="11-01">11-01 (am-pm)</option>
-                    <option value="01-03">01-03 (pm)</option>
-                    <option value="03-05">03-05 (pm)</option>
-                    <option value="05-08">05-08 (pm)</option>
+                    <option value="9-11 (am)">9-11(am)</option>
+                    <option value="11-01 (am-pm)">11-01 (am-pm)</option>
+                    <option value="01-03 (pm)">01-03 (pm)</option>
+                    <option value="03-05 (pm)">03-05 (pm)</option>
+                    <option value="05-08 (pm)">05-08 (pm)</option>
                   </select>
                 </div>
               </FormGroup>

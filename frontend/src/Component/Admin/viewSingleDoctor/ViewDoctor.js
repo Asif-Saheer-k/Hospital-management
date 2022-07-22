@@ -30,48 +30,17 @@ function ViewDoctor() {
       }
     })();
   }, []);
-  console.log(time, "sdfsdfdsfsdfsdfsdfsdfsd");
-  var monday = null;
-  var tusday = null;
-  var wednesday = null;
-  var thursday = null;
-  var friday = null;
-  var saturday = null;
-  var sunday = null;
 
+  const availableDays = [];
   {
     time.map((obj) => {
-      const mons = obj.Mon;
-      const tus = obj.Tus;
-      const wen = obj.wen;
-      const thu = obj.thur;
-      const frid = obj.fri;
-      const stat = obj.sta;
-      const sun = obj.sund;
-      if (mons) {
-        monday = mons;
-        console.log("fdjkjf", mons);
-      }
-      if (tus) {
-        tusday = tus;
-      }
-      if (wen) {
-        wednesday = wen;
-      }
-      if (thu) {
-        thursday = thu;
-      }
-      if (frid) {
-        friday = frid;
-      }
-      if (stat) {
-        saturday = stat;
-      }
-      if (sun) {
-        sunday = sun;
+      if (obj.Time) {
+        availableDays.push({ time: obj.Time, Days: obj.Day });
       }
     });
   }
+
+
   const verifyTrue = async (id) => {
     try {
       const config = {
@@ -193,18 +162,16 @@ function ViewDoctor() {
                 </div>
                 <div style={{ marginLeft: "10%" }}>
                   <h4>Available Time</h4>
-                  {monday && <pre>Monday: {monday}</pre>}
-                  {tusday && <pre>Tusday: {tusday}</pre>}
-                  {wednesday && <pre>Wednesday: {wednesday}</pre>}
-                  {thursday && <pre>Thursday: {thursday}</pre>}
-                  {friday && <pre>Friday: {friday}</pre>}
-                  {saturday && <pre>Saturday: {saturday}</pre>}
-                  {sunday && <pre>Sunday: {sunday}</pre>}
+                  {availableDays.map((obj) => {
+                        return (
+                           <pre>{obj.Days}: {obj.time}</pre>
+                        )})}
+                 
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div>       
         <div className="text-center">
           <button
             className="btn btn-success"

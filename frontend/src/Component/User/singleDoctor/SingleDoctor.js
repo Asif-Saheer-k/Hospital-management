@@ -28,14 +28,18 @@ const style = {
 
 function SingleDoctor() {
   const [doctor, setDoctor] = useState({});
+
   const [time, setTime] = useState([]);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [value, setValue] = React.useState(Date);
   const [selectedTime, setSelectedTime] = useState("");
+  const [selectedDate, setSelectedDate] = useState();
+  const [availableTime, setAvailableTime] = useState(null);
+  const [error, setError] = useState(null);
   const user = useSelector((state) => state.user.value);
-  console.log("useridds", user._id);
+
   const doctorId = useParams();
   const {
     register,
@@ -44,6 +48,8 @@ function SingleDoctor() {
     formState: { errors },
     reset,
   } = useForm();
+  const pick = new Date();
+  const TodayDate = pick.toLocaleDateString("en-CA");
 
   useEffect(() => {
     (async function () {
@@ -57,96 +63,88 @@ function SingleDoctor() {
           `/user/view-single-doctor/${doctorId.id}`,
           config
         );
-        console.log(data, "ddddddddddddddddd");
+
         setDoctor(data);
+
         setTime(data.time);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
-  var monday = null;
-  var tusday = null;
-  var wednesday = null;
-  var thursday = null;
-  var friday = null;
-  var saturday = null;
-  var sunday = null;
-
+  const availableDays = [];
   {
     time.map((obj) => {
-      const mons = obj.Mon;
-      const tus = obj.Tus;
-      const wen = obj.wen;
-      const thu = obj.thur;
-      const frid = obj.fri;
-      const stat = obj.sta;
-      const sun = obj.sund;
-      if (mons) {
-        monday = mons;  
-      }
-      if (tus) {
-        tusday = tus;
-      }
-      if (wen) {
-        wednesday = wen;
-      }
-      if (thu) {
-        thursday = thu;
-      }
-      if (frid) {
-        friday = frid;
-      }
-      if (stat) {
-        saturday = stat;
-      }
-      if (sun) {
-        sunday = sun;
+      if (obj.Time) {
+        availableDays.push({ time: obj.Time, Days: obj.Day });
       }
     });
   }
-
   const onSubmit = async (data) => {
-    const week=['sunday','monday','tusday','wednesday','Thursday','thursday','saturday']
-    
-    const date=data.date;
- const LocalFormat=new Date(date)
- const index=LocalFormat.getDay()
- const day=week[index]
+    if(availableTime){
+    console.log(data,"ddddddddddddddddddddddddddddd");
+    console.log(selectedDate);
+    console.log(availableTime);
+  
+    const name = data.Name;
+    const phone = data.Number;
+    const message = data.message;
+    const date=selectedDate;
+    const selectedTime=availableTime;
+    const doctorId = doctor._id;
+    const userId = user._id;
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      console.log("messahe", message);
+      const { data } = await axios.post(
+        "/user/patient-details",
+        {
+          name,
+          phone,
+          message,
+          date,
+          selectedTime,
+          doctorId,
+          userId,
+        },
+        config
+      );
+    } catch (error) {
+      console.log(error);
+    } 
+  }        
+  };
+  const changeTime = (date) => {
+    setAvailableTime(null);
+    setSelectedDate(date);
+    const week = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const LocalFormat = new Date(date);
+    const index = LocalFormat.getDay();
+    const day = week[index];
+    console.log(day, "clik");
 
-
-//  if(day==mons || day==)
-
-    // console.log(value);
-    // console.log(selectedTime);
-    // const name = data.Name;
-    // const phone = data.Number;
-    // const message = data.message;
-    // const doctorId = doctor._id;
-    // const userId = user._id;
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //   };
-    //   console.log("messahe", message);
-    //   const { data } = await axios.post(
-    //     "/user/patient-details",
-    //     {
-    //       name,
-    //       phone,
-    //       message,
-    //       date,
-    //       selectedTime,
-    //       doctorId,
-    //       userId,
-    //     },
-    //     config
-    //   );
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    {
+      availableDays.map((obj) => {
+        if (day == obj.Days) {
+          setAvailableTime(obj.time);
+          setError(null);
+        }
+      });
+    }
+    console.log("objtime", availableTime);
+   
   };
   return (
     <section class="section doctor-single">
@@ -274,17 +272,25 @@ function SingleDoctor() {
                                             id="start"
                                             class="form-control"
                                             name="trip-start"
-                                      
-                                            min="2020-01-01"
+                                            min={TodayDate}
                                             max="2030-12-31"
-                                            {...register("date", {
-                                              required: "Name is required",
-                                            })}
-                                            onKeyUp={() => {
-                                              trigger("Date");
+                                            onChange={(e) => {
+                                              changeTime(e.target.value);
                                             }}
+                                            // {...register("date", {
+                                            //   required: "Name is required",
+
+                                            // })}
+                                            // onKeyUp={() => {
+                                            //   trigger("Date");
+                                            // }}
                                           />
                                         </div>
+                                        {error && (
+                                          <small className="text-danger">
+                                            {error}
+                                          </small>
+                                        )}
                                       </div>
 
                                       <div class="col-lg-6">
@@ -292,48 +298,31 @@ function SingleDoctor() {
                                           <select
                                             class="form-control"
                                             id="exampleFormControlSelect2"
-                                            onChange={(e) =>
-                                              setSelectedTime(e.target.value)
-                                            }
+                                            {...register("Settime", {
+                                              required: " Please Select Valid Date",
+                                            })}
+                                            onClick={() => {
+                                              trigger("Settime");
+                                            }}
+                                          
                                           >
-                                            <option>Select Time</option>
-                                            {monday && (
-                                              <option value={monday}>
-                                                {monday}
+                                            {availableTime ? (
+                                              <option value={availableTime}>
+                                                {availableTime}
                                               </option>
-                                            )}
-                                            {tusday && (
-                                              <option value={tusday}>
-                                                {tusday}
-                                              </option>
-                                            )}
-                                            {wednesday && (
-                                              <option value={wednesday}>
-                                                {wednesday}
-                                              </option>
-                                            )}
-                                            {thursday && (
-                                              <option value={thursday}>
-                                                {thursday}
-                                              </option>
-                                            )}
-                                            {friday && (
-                                              <option value={friday}>
-                                                {friday}
-                                              </option>
-                                            )}
-                                            {saturday && (
-                                              <option value={saturday}>
-                                                {saturday}
-                                              </option>
-                                            )}
-                                            {sunday && (
-                                              <option value={sunday}>
-                                                {sunday}
+                                            ) : (
+                                              <option>
+                                                Please Select Date
                                               </option>
                                             )}
                                           </select>
                                         </div>
+                                        {availableTime ?(<small></small>): (
+                                          <small className="text-danger">
+                                            Please Select Valid Date
+                                          </small>
+                                        )}
+
                                       </div>
                                       <div class="col-lg-6">
                                         <div class="form-group">
@@ -427,48 +416,14 @@ function SingleDoctor() {
                     <h5 class="mb-4">Time Schedule</h5>
 
                     <ul class="list-unstyled">
-                      {monday && (
-                        <li class="d-flex justify-content-between align-items-center">
-                          <a href="#">Monday</a>
-                          <span>{monday}</span>
-                        </li>
-                      )}
-                      {thursday && (
-                        <li class="d-flex justify-content-between align-items-center">
-                          <a href="#">Tuesday</a>
-                          <span>{thursday}</span>
-                        </li>
-                      )}
-                      {wednesday && (
-                        <li class="d-flex justify-content-between align-items-center">
-                          <a href="#">Wednesday</a>
-                          <span>{wednesday}</span>
-                        </li>
-                      )}
-                      {tusday && (
-                        <li class="d-flex justify-content-between align-items-center">
-                          <a href="#">Thursday</a>
-                          <span>{tusday}</span>
-                        </li>
-                      )}
-                      {friday && (
-                        <li class="d-flex justify-content-between align-items-center">
-                          <a href="#">Friday</a>
-                          <span>{friday}</span>
-                        </li>
-                      )}
-                      {saturday && (
-                        <li class="d-flex justify-content-between align-items-center">
-                          <a href="#">Saturday</a>
-                          <span>{saturday}</span>
-                        </li>
-                      )}
-                      {sunday && (
-                        <li class="d-flex justify-content-between align-items-center">
-                          <a href="#">Sunday</a>
-                          <span>{sunday}</span>
-                        </li>
-                      )}
+                      {availableDays.map((obj) => {
+                        return (
+                          <li class="d-flex justify-content-between align-items-center">
+                            <a href="#">{obj.Days}</a>
+                            <span>{obj.time}</span>
+                          </li>
+                        );
+                      })}
                     </ul>
 
                     <div class="sidebar-contatct-info mt-4">
