@@ -1,18 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-
+import { Link, useParams,useNavigate } from "react-router-dom";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
+
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
-import TextField from "@mui/material/TextField";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const style = {
   position: "absolute",
@@ -38,9 +37,11 @@ function SingleDoctor() {
   const [selectedDate, setSelectedDate] = useState();
   const [availableTime, setAvailableTime] = useState(null);
   const [error, setError] = useState(null);
+  const [appointmentError,setAppointmentError]=useState()
   const user = useSelector((state) => state.user.value);
 
   const doctorId = useParams();
+  const navigate=useNavigate()
   const {
     register,
     handleSubmit,
@@ -113,7 +114,9 @@ function SingleDoctor() {
         },
         config
       );
+      navigate('/view-doctors')
     } catch (error) {
+      setAppointmentError(error.response.data)
       console.log(error);
     } 
   }        
@@ -383,6 +386,13 @@ function SingleDoctor() {
                                         }}
                                       ></textarea>
                                     </div>
+                                    {appointmentError &&
+                                    <Stack sx={{ width: '100%' }} spacing={2}>
+                                    <Alert severity="info">
+                                        <AlertTitle>info</AlertTitle>
+                                      This is an info alert — <strong>{appointmentError}</strong>
+                                     </Alert>
+                                      </Stack>}
 
                                     <button
                                       class="btn btn-main btn-primary btn-round-full"

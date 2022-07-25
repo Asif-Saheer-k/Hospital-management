@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Doctor = require("../models/doctorModel");
+const Patient = require("../models/patientModel");
 const generateToken = require("../utils/generateToken");
 
 const addDoctors = asyncHandler(async (req, res) => {
@@ -58,6 +59,7 @@ const verifyDoctor = asyncHandler(async (req, res) => {
   if (DoctorDetails && (await DoctorDetails.matchPassword(password))) {
     if (DoctorDetails.valid == true) {
       res.status(200).json({
+        id:DoctorDetails._id,
         url: DoctorDetails.url,
         email: DoctorDetails.email,
         token: generateToken(DoctorDetails._id),
@@ -66,10 +68,10 @@ const verifyDoctor = asyncHandler(async (req, res) => {
         addres: DoctorDetails.address,
         Qualification: DoctorDetails.Qualification,
         specailist: DoctorDetails.specailist,
-        place: DoctorDetails.place,
+        place: DoctorDetails.place,    
         About: DoctorDetails.About,
         Phone: DoctorDetails.phone,
-        time: DoctorDetails.time,
+        time: DoctorDetails.time,  
       });
     } else {
       res.status(400);
@@ -79,6 +81,19 @@ const verifyDoctor = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid Email or Password!");
   }
-});
+});  
 
-module.exports = { verifyDoctor, addDoctors };
+const viewAllAppointment=asyncHandler(async(req,res)=>{
+const doctorId=req.params.id;
+
+const Patients=await Patient.find({ doctorId }) 
+     
+if(Patients){
+  res.status(200).json(Patients)
+}else{
+  res.status(400)
+  throw new Error("Wrong")
+}
+})  
+module.exports = {verifyDoctor,addDoctors,viewAllAppointment};
+    

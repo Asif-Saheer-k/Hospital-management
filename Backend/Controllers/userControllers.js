@@ -1,3 +1,4 @@
+const { log, time } = require("console");
 const asyncHandler = require("express-async-handler");
 const Doctor = require("../models/doctorModel");
 const Patient = require("../models/patientModel");
@@ -103,50 +104,74 @@ const verifyotp = asyncHandler(async (req, res) => {
       }
     });
 });
-const viewDepartmetDoctor=asyncHandler(async(req,res)=>{
-  const specailist =req.params.department;
+const viewDepartmetDoctor = asyncHandler(async (req, res) => {
+  const specailist = req.params.department;
 
-
-
-  const doctors = await Doctor.find({specailist});
-  console.log(doctors,"hgfghjkl");   
-  if(doctors){
-    res.status(200).json(doctors)
-  } else{
-    res.status(400)
-    throw new Error("Somthing went ")
-  }                                          
-          
-
-})      
-const addPatient=asyncHandler(async(req,res)=>{
+  const doctors = await Doctor.find({ specailist });
+  console.log(doctors, "hgfghjkl");
+  if (doctors) {
+    res.status(200).json(doctors);
+  } else {
+    res.status(400);
+    throw new Error("Somthing went ");
+  }
+});
+const addPatient = asyncHandler(async (req, res) => {
   console.log(req.body);
-  const {name,phone,message,date,selectedTime,doctorId,userId}=req.body
+  const { name, phone, message, date, selectedTime, doctorId, userId } =
+    req.body;
 
   //Today
-  // const day=new Date()  
+  // const day=new Date()
   // console.log(day.toLocaleDateString('en-CA'));
+  const _id = doctorId;
+  console.log(date, "ffffffffffffffffffffffff");
+  var TotalPatient = 0;
 
-  const patients=await Patient.create({
-    name,
-    phone,
-    message,
-    date,
-    selectedTime,
-    doctorId,
-    userId,
+  const doctorData = await Doctor.findById({ _id });
+  console.log(doctorData, "fffffffffffff");
 
-  })
-  if(patients){
-    res.status(200).json(patients)
-  }else{
-    res.status(400)
-    throw new Error("invalid Deatials")
+  doctorData.time.map((obj) => {
+    if (selectedTime == obj.Time) {
+      TotalPatient = obj.Patient;
+    }
+  });
+  console.log(TotalPatient, "vbbbbbbbbbbbbbbbbbb");
+  const TokenNumber = await Patient.find({ date });
+  const TotalAppointment = TokenNumber.length;
+  console.log("ssssssss", TotalAppointment);
+  console.log("zzzzzzzz", TotalPatient);
+
+  if (TotalAppointment < TotalPatient) {
+    const Token=TotalAppointment+1;
+    const patients = await Patient.create({
+    
+      name,
+      phone,
+      message,
+      date,
+      selectedTime,
+      doctorId,
+      userId,
+      Token
+    });
+    if (patients) {
+      console.log("fff");
+      res.status(200).json(patients);
+    } else {
+      res.status(400);
+      throw new Error("invalid Deatials");
+    }
+  } else {
+    res.status(400).json("Appointment Closed");
   }
+});
 
-
-})
-
-
-module.exports = { registerUser, verifyUser, verifyPhone, verifyotp,viewDepartmetDoctor,addPatient };
-         
+module.exports = {
+  registerUser,
+  verifyUser,
+  verifyPhone,
+  verifyotp,
+  viewDepartmetDoctor,
+  addPatient,
+};

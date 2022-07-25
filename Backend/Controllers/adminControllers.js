@@ -96,13 +96,13 @@ const deleteDoctors = asyncHandler(async (req, res) => {
 const allDoctors = asyncHandler(async (req, res) => {
   const valid = true;
   const doctors = await Doctor.find({ valid });
-
+  console.log(doctors,'lllllll');
   if (doctors) {
     res.status(200).json(doctors);
   } else {
     res.status(400);
     throw new Error("somthing is happen");
-  }
+  }  
 });
 const addDepartment = asyncHandler(async (req, res) => {
   console.log(req.body);

@@ -229,7 +229,7 @@ export const Header = () => {
                       </li>
                       <li>
                         <a class="dropdown-item" href="doctor-single.html">
-                          APPOINMENT
+                          APPOINTMENT
                         </a>
                       </li>
                       <li>

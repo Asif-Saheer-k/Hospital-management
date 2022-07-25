@@ -47,6 +47,7 @@ function ViewallDoctor() {
             `/user/view-Department-doctors/${departmentId}`,
             config
           );
+          console.log(data,"zzzzzzzzzzzzzzzzzzzzzzzzzzzz");
           setDoctor(data);
         } catch (error) {
           console.log(error);
@@ -166,9 +167,11 @@ function ViewallDoctor() {
                   data-groups='["cat1","cat2"]'
                   key={obj._id}
                 >
-                  <div class="position-relative doctor-inner-box">
+                  <div class="position-relative doctor-inner-box"  onClick={() => {
+                            viewSingleDoctor(obj._id);
+                          }}>
                     <div class="doctor-profile">
-                      <div class="doctor-img">
+                      <div class="doctor-img" >
                         <img
                           src={obj.url}
                           alt="doctor-image"
@@ -179,9 +182,7 @@ function ViewallDoctor() {
                     <div class="content mt-3">
                       <h4 class="mb-0">
                         <a
-                          onClick={() => {
-                            viewSingleDoctor(obj._id);
-                          }}
+                         
                         >
                           {obj.Name}
                         </a>
