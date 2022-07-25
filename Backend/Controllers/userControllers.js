@@ -137,7 +137,8 @@ const addPatient = asyncHandler(async (req, res) => {
     }
   });
   console.log(TotalPatient, "vbbbbbbbbbbbbbbbbbb");
-  const TokenNumber = await Patient.find({ date });
+  const TokenNumber = await Patient.find({ doctorId,date});
+  console.log(TokenNumber,"Toen");
   const TotalAppointment = TokenNumber.length;
   console.log("ssssssss", TotalAppointment);
   console.log("zzzzzzzz", TotalPatient);
@@ -156,7 +157,7 @@ const addPatient = asyncHandler(async (req, res) => {
       Token
     });
     if (patients) {
-      console.log("fff");
+
       res.status(200).json(patients);
     } else {
       res.status(400);

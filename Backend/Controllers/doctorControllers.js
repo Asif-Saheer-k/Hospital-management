@@ -35,7 +35,6 @@ const addDoctors = asyncHandler(async (req, res) => {
     place,
     specailist,
     address,
-    Day,
     time,
     url,
     About,

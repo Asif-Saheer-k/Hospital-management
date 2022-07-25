@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const doctorSchema = mongoose.Schema(
   {
     Name: {
-      type: Number,
+      type: String,
       required:true,
     },
     email: {
@@ -44,10 +44,7 @@ const doctorSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    Day:{ 
-      type:Object,
-      require:false
-    },
+
     time:{
       type:Array,
       require:false
