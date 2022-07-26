@@ -228,9 +228,9 @@ export const Header = () => {
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="doctor-single.html">
+                        <Link class="dropdown-item" to='/view-appointments'>
                           APPOINTMENT
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <a class="dropdown-item" onClick={LOGOUT} href="/login">

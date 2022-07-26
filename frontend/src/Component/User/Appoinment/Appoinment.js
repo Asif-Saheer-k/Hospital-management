@@ -1,117 +1,182 @@
-import React from 'react'
-import '../Style/css/style.css'
-import '../Style/plugins/slick-carousel/slick/slick-theme.css'
-import '../Style/plugins/slick-carousel/slick/slick.css'
-import '../Style/plugins/icofont/icofont.min.css'
-import '../Style/plugins/bootstrap/css/bootstrap.min.css'
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import {useNavigate} from "react-router-dom"
 function Appoinment() {
+  const [appoinment, setAppointment] = useState([]);
+  const [doctor, setDoctor] = useState([]);
+  const [load,setLoad]=useState(false)
+  const user = useSelector((state) => state.user.value);
+  const navigate=useNavigate()
+  useEffect(() => {
+    setLoad(false)
+    const viewAllAppointment = async (id) => {
+      try {
+        console.log(id);
+        console.log("hi");
+        const { data } = await axios.get(`/user/view-appointments/${id}`);
+        setAppointment(data.reverse());
+      } catch (eror) {
+        console.log(eror.response.data);
+      }
+    };
+    viewAllAppointment(user._id);
+  }, [load]);
+
+  useEffect(() => {
+    const viewAllDoctors = async () => {
+      try {
+        const { data } = await axios.get("/user/view-all-doctors");
+        console.log(data);
+        setDoctor(data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+    viewAllDoctors();
+  }, [load]);
+
+  const cancleAppointment = (id) => {
+    setLoad(true)
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showCancelButton: true,
+      confirmButtonText: "Ok",
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        try {
+          const { data } = await axios.delete(
+            `/user/cancel-appointmnets/${id}`
+          );
+          if (data) {
+            var index = 0;
+            appoinment.map((obj) => {
+              console.log("fsdf", obj);
+              if (obj._id == id) {
+                index = appoinment.indexOf(obj);
+              }
+            });
+            const test = [...appoinment];
+      
+            test.splice(index, 1);
+            setAppointment(test);
+      
+            navigate('/view-appointments')
+            
+            console.log(data);
+            Swal.fire("Cancelled", "", "success");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+
+        
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
   return (
-    <div>
-        <section class="page-title bg-1">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block text-center">
-          <span class="text-white">Book your Seat</span>
-          <h1 class="text-capitalize mb-5 text-lg">Appoinment</h1>
+    <section class="section doctor-single">
+      <div class="container">
+        {appoinment.map((obj) => {
+          return (
+            <div
+              class="row"
+              style={{ backgroundColor: "whitesmoke", marginTop: "2%" }}
+            >
+              <div class="col-lg-4 col-md-6">
+                {doctor.map((obj1) => {
+                  if (obj.doctorId == obj1._id) {
+                    return (
+                      <div class="doctor-img-block">
+                        <img src={obj1.url} alt="" class="img-fluid w-50" />
 
-          {/* <ul class="list-inline breadcumb-nav">
-            <li class="list-inline-item"><a href="index.html" class="text-white">Home</a></li>
-            <li class="list-inline-item"><span class="text-white">/</span></li>
-            <li class="list-inline-item"><a href="#" class="text-white-50">Book your Seat</a></li>
-          </ul>  */}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="appoinment section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4">
-          <div class="mt-3">
-            <div class="feature-icon mb-3">
-              <i class="icofont-support text-lg"></i>
-            </div>
-             <span class="h3">Call for an Emergency Service!</span>
-              <h2 class="text-color mt-3">+84 789 1256 </h2>
-          </div>
-      </div>
+                        <div class="info-block mt-4">
+                          <h4 class="mb-0">{obj1.Name}</h4>
+                          <p>{obj1.specailist}</p>
 
-      <div class="col-lg-8">
-           <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
-            <h2 class="mb-2 title-color">Book an appoinment</h2>
-            <p class="mb-4">Mollitia dicta commodi est recusandae iste, natus eum asperiores corrupti qui velit . Iste dolorum atque similique praesentium soluta.</p>
-               <form id="#" class="appoinment-form" method="post" action="#">
-                    <div class="row">
-                         <div class="col-lg-6">
-                            <div class="form-group">
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                  <option>Choose Department</option>
-                                  <option>Software Design</option>
-                                  <option>Development cycle</option>
-                                  <option>Software Development</option>
-                                  <option>Maintenance</option>
-                                  <option>Process Query</option>
-                                  <option>Cost and Duration</option>
-                                  <option>Modal Delivery</option>
-                                </select>
-                            </div>
+                          <ul class="list-inline mt-4 doctor-social-links">
+                            <li class="list-inline-item">
+                              <a href="#">
+                                <i class="icofont-facebook"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#">
+                                <i class="icofont-twitter"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#">
+                                <i class="icofont-skype"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#">
+                                <i class="icofont-linkedin"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="#">
+                                <i class="icofont-pinterest"></i>
+                              </a>
+                            </li>
+                          </ul>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <select class="form-control" id="exampleFormControlSelect2">
-                                  <option>Select Doctors</option>
-                                  <option>Software Design</option>
-                                  <option>Development cycle</option>
-                                  <option>Software Development</option>
-                                  <option>Maintenance</option>
-                                  <option>Process Query</option>
-                                  <option>Cost and Duration</option>
-                                  <option>Modal Delivery</option>
-                                </select>
-                            </div>
-                        </div>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
 
-                         <div class="col-lg-6">
-                            <div class="form-group">
-                                <input name="date" id="date" type="text" class="form-control" placeholder="dd/mm/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input name="time" id="time" type="text" class="form-control" placeholder="Time"/>
-                            </div>
-                        </div>
-                         <div class="col-lg-6">
-                            <div class="form-group">
-                                <input name="name" id="name" type="text" class="form-control" placeholder="Full Name"/>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input name="phone" id="phone" type="Number" class="form-control" placeholder="Phone Number"/>
-                            </div>
-                        </div>
+              <div class="col-lg-8 col-md-6">
+                <div class="doctor-details mt-4 mt-lg-0 ms-auto">
+                  <h2 class="text-md">Protocol</h2>
+                  <div class="divider my-4"></div>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Nisi doloremque harum, mollitia, soluta maxime porro
+                    veritatis fuga autem impedit corrupti aperiam sint,
+                    architecto, error nesciunt temporibus! Vel quod, dolor
+                    aliquam!
+                  </p>
+                  <div className="row">
+                    <div className="col-lg-5 col-md-6">
+                      <p style={{ color: "black" }}>
+                        Appointment Date: {obj.date}
+                      </p>
                     </div>
-                    <div class="form-group-2 mb-4">
-                        <textarea name="message" id="message" class="form-control" rows="6" placeholder="Your Message"></textarea>
+                    <div className="col-lg-4 col-md-6">
+                      <p className="ms-5" style={{ color: "black" }}>
+                        Time: {obj.selectedTime}
+                      </p>
                     </div>
+                    <div className="col-lg-3 col-md-6">
+                      <p className="ms-5" style={{ color: "black" }}>
+                        Token: {obj.Token}
+                      </p>
+                    </div>
+                  </div>
 
-                    <a class="btn btn-main btn-round-full" href="confirmation.html">Make Appoinment<i class="icofont-simple-right ml-2"></i></a>
-                </form>
+                  <a
+                    style={{ color: "red" }}
+                    class="btn btn-main-2 btn-round-full mt-3"
+                    onClick={() => cancleAppointment(obj._id)}
+                  >
+                    Cancell
+                    <i class="icofont-simple-right ml-2  "></i>
+                  </a>
+                </div>
+              </div>
             </div>
-        </div>
+          );
+        })}
       </div>
-    </div>
-  
-</section>
-   </div>
-  )
+    </section>
+  );
 }
 
-export default Appoinment
+export default Appoinment;

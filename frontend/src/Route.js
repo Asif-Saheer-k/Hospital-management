@@ -17,7 +17,7 @@ import Doctors from './Component/Admin/Doctors/Doctors';
 import AddDoctors from './Component/Doctor/register/Register';
 import Footer from './Component/User/Footer/Footer'
 
-import Appoinment from './Component/User/Appoinment/Appoinment';
+
 import About from './Component/User/About/About';
 import Services from './Component/User/Services/Services';
 import ViewDoctor from './Component/Admin/viewSingleDoctor/ViewDoctor'
@@ -27,6 +27,7 @@ import SingleDoctor from './Component/User/singleDoctor/SingleDoctor';
 import DoctorHome from './Component/Doctor/pages/home/DoctorHome';
 import ProfilePage from './Component/Doctor/pages/profilePage/ProfilePage';
 import Allappointment from './Component/Doctor/pages/allAppointment/Allappointment';
+import Appoinment from './Component/User/Appoinment/Appoinment';
 
 function Router() {
   return (
@@ -43,6 +44,7 @@ function Router() {
       <Route path='/view-doctors' element={[<Header/>,<ViewallDoctor/>,<Footer/>]}/>
       <Route path='/view-single-doctor/:id' element={[<Header/>,<SingleDoctor/>,<Footer/>]}/>
       <Route path='/view-doctor-department/:departId' element={[<Header/>,<ViewallDoctor/>,<Footer/>]}/>
+      <Route path='/view-appointments' element={[<Header/>,<Appoinment/>,<Footer/>]}/>
       
        
        

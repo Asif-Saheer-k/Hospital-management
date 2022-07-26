@@ -167,6 +167,26 @@ const addPatient = asyncHandler(async (req, res) => {
     res.status(400).json("Appointment Closed");
   }
 });
+const viewUserAppointment=asyncHandler(async(req,res)=>{
+const userId=req.params.id
+const appointments=await Patient.find({userId})
+if(appointments){
+  res.status(200).json(appointments)
+}else{
+  res.status(400).json("No Appointments")
+}
+})
+const deleteAppointment=async(req,res)=>{
+  _id=req.params.id
+  console.log(_id,"fff");
+  const data= await Patient.deleteOne({_id})
+  if(data){
+    console.log("hoi");
+    res.status(200).json("deleted")
+  }else{
+    console.log("kooi");
+  }
+}
 
 module.exports = {
   registerUser,
@@ -175,4 +195,6 @@ module.exports = {
   verifyotp,
   viewDepartmetDoctor,
   addPatient,
+  viewUserAppointment,
+  deleteAppointment
 };
