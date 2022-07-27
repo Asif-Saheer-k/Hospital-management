@@ -49,6 +49,7 @@ const verifyUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.username,
       email: user.email,
+      phone:user.phoneNumber,
       token: generateToken(user._id),
     });
   } else {

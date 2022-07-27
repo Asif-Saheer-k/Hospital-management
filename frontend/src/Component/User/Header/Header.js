@@ -223,9 +223,9 @@ export const Header = () => {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown03">
                       <li>
-                        <a class="dropdown-item" href="doctor.html">
+                        <Link class="dropdown-item" to="/view-profile">
                           PROFILE
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <Link class="dropdown-item" to='/view-appointments'>

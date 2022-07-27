@@ -28,6 +28,7 @@ import DoctorHome from './Component/Doctor/pages/home/DoctorHome';
 import ProfilePage from './Component/Doctor/pages/profilePage/ProfilePage';
 import Allappointment from './Component/Doctor/pages/allAppointment/Allappointment';
 import Appoinment from './Component/User/Appoinment/Appoinment';
+import UserProfile from './Component/User/userProfile/UserProfile';
 
 function Router() {
   return (
@@ -45,6 +46,7 @@ function Router() {
       <Route path='/view-single-doctor/:id' element={[<Header/>,<SingleDoctor/>,<Footer/>]}/>
       <Route path='/view-doctor-department/:departId' element={[<Header/>,<ViewallDoctor/>,<Footer/>]}/>
       <Route path='/view-appointments' element={[<Header/>,<Appoinment/>,<Footer/>]}/>
+      <Route path='/view-profile' element={[<Header/>,<UserProfile/>,<Footer/>]}/>
       
        
        
