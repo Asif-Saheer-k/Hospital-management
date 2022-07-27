@@ -37,7 +37,7 @@ function ViewDoctor() {
       if (obj.Time) {
         availableDays.push({ time: obj.Time, Days: obj.Day });
       }
-    });
+    })
   }
 
 

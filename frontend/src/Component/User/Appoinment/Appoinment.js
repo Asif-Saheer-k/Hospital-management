@@ -1,16 +1,40 @@
 import axios from "axios";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 700,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
 function Appoinment() {
   const [appoinment, setAppointment] = useState([]);
   const [doctor, setDoctor] = useState([]);
-  const [load,setLoad]=useState(false)
+  const [load, setLoad] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [Prescription,setPrescription]=useState({})
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const user = useSelector((state) => state.user.value);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
-    setLoad(false)
+    setLoad(false);
     const viewAllAppointment = async (id) => {
       try {
         console.log(id);
@@ -38,7 +62,7 @@ function Appoinment() {
   }, [load]);
 
   const cancleAppointment = (id) => {
-    setLoad(true)
+    setLoad(true);
     Swal.fire({
       title: "Do you want to save the changes?",
       showCancelButton: true,
@@ -59,32 +83,40 @@ function Appoinment() {
               }
             });
             const test = [...appoinment];
-      
+
             test.splice(index, 1);
             setAppointment(test);
-      
-            navigate('/view-appointments')
-            
+
+            navigate("/view-appointments");
+
             console.log(data);
             Swal.fire("Cancelled", "", "success");
           }
         } catch (error) {
           console.log(error);
         }
-
-        
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
     });
   };
+  const viewPerscription=(id)=>{
+    appoinment.map((obj)=>{
+      if(obj._id==id){
+        console.log(obj);
+       setPrescription(obj)
+      }
+    })
+
+  handleOpen()
+  }
   return (
     <section class="section doctor-single">
       <div class="container">
         {appoinment.map((obj) => {
           return (
             <div
-              class="row"
+              class="row"     
               style={{ backgroundColor: "whitesmoke", marginTop: "2%" }}
             >
               <div class="col-lg-4 col-md-6">
@@ -161,20 +193,67 @@ function Appoinment() {
                     </div>
                   </div>
 
-                  <a
-                    style={{ color: "red" }}
-                    class="btn btn-main-2 btn-round-full mt-3"
-                    onClick={() => cancleAppointment(obj._id)}
-                  >
-                    Cancell
-                    <i class="icofont-simple-right ml-2  "></i>
-                  </a>
+                  {obj.valid && (
+                    <a
+                      style={{ color: "red" }}
+                      class="btn btn-main-2 btn-round-full mt-3"
+                      onClick={() => cancleAppointment(obj._id)}
+                    >
+                      Cancell
+                      <i class="icofont-simple-right ml-2  "></i>
+                    </a>
+                  )}
+                  {obj.Medcine && (
+                    <a
+                      style={{ color: "red" }}
+                      class="btn btn-main-2 btn-round-full mt-3"
+                      onClick={()=>{viewPerscription(obj._id)}}
+                    
+                    >
+                      View Prescription
+                      <i class="icofont-simple-right ml-2  "></i>
+                    </a>
+                  )}
+                  
                 </div>
               </div>
             </div>
           );
         })}
       </div>
+      <Modal
+                    hideBackdrop
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="child-modal-title"
+                    aria-describedby="child-modal-description"
+                  >
+                    <Box sx={{ ...style, width: 500, height: 500 }}>
+                       <div className="row">
+                       <div className="col-10">
+                        <h2 id="child-modal-title" style={{ marginLeft: "5%" }}>
+                          CAREWELL HOSPITAL
+                        </h2>
+                        </div>
+                        <div className="col-2">
+                        <a className="btn btn-danger ms-2  " onClick={handleClose} style={{backgroundColor:"white"}}>
+                          <i class="fa-solid fa-xmark"></i>
+                        </a>
+                        </div>
+                        </div>
+                      <p id="child-modal-description">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing
+                        elit.
+                      </p>
+                      <span>NAME:{Prescription.name} </span>
+                      <span style={{ marginLeft: "50%" }}>Age : {Prescription.Age}</span>
+                      <hr class="sidebar-divider d-none d-md-block" />
+                      <p>
+                      {Prescription.Medcine}
+                       
+                      </p>
+                    </Box>
+                  </Modal>
     </section>
   );
 }

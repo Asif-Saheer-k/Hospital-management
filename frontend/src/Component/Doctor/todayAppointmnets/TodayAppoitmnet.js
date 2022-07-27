@@ -13,12 +13,11 @@ import { useSelector } from "react-redux";
 function TodayAppoitmnet() {
   const [todayAppointment, setTodayAppointment] = useState([]);
   const [next, setNext] = useState([]);
-  const [refresh,setRefresh]=useState(false)
+  const [refresh, setRefresh] = useState(false);
 
   const doctor = useSelector((state) => state.doctor.value);
 
-  useEffect(() => {   
-   
+  useEffect(() => {
     (async function () {
       try {
         const { data } = await axios.get(
@@ -28,58 +27,54 @@ function TodayAppoitmnet() {
         setTodayAppointment(data);
         const nextPatient = data[0];
         console.log(nextPatient, "lll");
-        if(nextPatient){
-        setNext(nextPatient);
+        if (nextPatient) {
+          setNext(nextPatient);
         }
-        // setRefresh(false)
+        setRefresh(false);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [refresh]);
 
-  
-
-  const onSubmit=async(data)=>{
-    reset()
+  const onSubmit = async (data) => {
+    reset();
     console.log(data);
     console.log("fi");
-    const prscrioption=data.message
-    const id=next._id
-   
-  
-    try {         
-        const config = {
-            headers: {
-              "Content-type": "application/json",
-            },
-          };
-        const { data } = await axios.patch('/doctor/appointment-finished',{
-            prscrioption,
-            id
-        },config);
-    //   setRefresh(true)
-      } catch (error) {
-        console.log(error);
-      }
-    
+    const prscrioption = data.message;
+    const id = next._id;
 
-  }
-  const deleteAppointment=async(id)=>{
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.patch(
+        "/doctor/appointment-finished",
+        {
+          prscrioption,
+          id,
+        },
+        config
+      );
+      setRefresh(true);
+      setRefresh(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteAppointment = async (id) => {
     console.log("fis");
-    try{
+    try {
+      const data = await axios.delete(`/doctor/delete-appoinments/${id}`);
+      setRefresh(true);
+      setRefresh(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-        const data=await axios.delete(`/doctor/delete-appoinments/${id}`)
-        setRefresh(true)
-        setRefresh(false)    
-    }catch(error){
-        console.log(error);     
-
-    }     
-    
-    
-  }
-    
   const {
     register,
     handleSubmit,
@@ -127,28 +122,28 @@ function TodayAppoitmnet() {
       </div>
 
       <div class="col-xl-4 col-lg-5">
-        <div class="card shadow mb-4 mt-5" style={{height:"75%"}}>
+        <div class="card shadow mb-4 mt-5" style={{ height: "75%" }}>
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Next Patient</h6>
           </div>
 
-          <div class="card-body">               
+          <div class="card-body">
             <div class="chart-pie  ">
               <span class="mr-2 ">Name: {next.name}</span>
               <span class="mr-2 ms-5">age: {next.Age}</span>
               <form onSubmit={handleSubmit(onSubmit)}>
-              <textarea
-                class="form-control"
-                rows="6"
-                placeholder="Your Message"
-                {...register("message", {
-                  required: "Message is required",
-                })}
-                onKeyUp={() => {
-                  trigger("message");
-                }}
-              ></textarea>
-               {/* <input
+                <textarea
+                  class="form-control"
+                  rows="6"
+                  placeholder="Your Message"
+                  {...register("message", {
+                    required: "Message is required",
+                  })}
+                  onKeyUp={() => {
+                    trigger("message");
+                  }}
+                ></textarea>
+                {/* <input
                type='hidden'
                 class="form-control"a
                 rows="6"
@@ -161,24 +156,23 @@ function TodayAppoitmnet() {
                   trigger("id");
                 }}
               ></input> */}
-              
 
-              <span class="mr-2 ms-5">
-                <button
-                type="submit"
-                  className="btn btn-success  mt-3"  
-                
-                >
-                  <i class="fa-solid fa-check" style={{ color: "white" }}></i>
-                </button>
-                <a className="btn btn-danger ms-2  mt-3" onClick={()=>{deleteAppointment(next._id)}}>
-                  <i class="fa-solid fa-xmark" style={{ color: "white" }}></i>{" "}
-                </a>
-               
-              </span>
+                <span class="mr-2 ms-5">
+                  <button type="submit" className="btn btn-success  mt-3">
+                    <i class="fa-solid fa-check" style={{ color: "white" }}></i>
+                  </button>
+                  <a
+                    className="btn btn-danger ms-2  mt-3"
+                    onClick={() => {
+                      deleteAppointment(next._id);
+                    }}
+                  >
+                    <i class="fa-solid fa-xmark" style={{ color: "white" }}></i>{" "}
+                  </a>
+                </span>
               </form>
             </div>
-          </div>     
+          </div>
         </div>
       </div>
     </div>
