@@ -33,7 +33,7 @@ function SingleDoctor() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [value, setValue] = React.useState(Date);
-  const [selectedTime, setSelectedTime] = useState("");
+  const [selectedDay, setSelectedDay] = useState("");
   const [selectedDate, setSelectedDate] = useState();
   const [availableTime, setAvailableTime] = useState(null);
   const [error, setError] = useState(null);
@@ -111,6 +111,7 @@ function SingleDoctor() {
           selectedTime,
           doctorId,
           userId,
+          selectedDay
         },
         config
       );
@@ -141,6 +142,7 @@ function SingleDoctor() {
     {
       availableDays.map((obj) => {
         if (day == obj.Days) {
+          setSelectedDay(day)
           setAvailableTime(obj.time);
           setError(null);
         }

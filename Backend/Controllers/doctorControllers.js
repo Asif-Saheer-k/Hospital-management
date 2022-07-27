@@ -58,7 +58,7 @@ const verifyDoctor = asyncHandler(async (req, res) => {
   if (DoctorDetails && (await DoctorDetails.matchPassword(password))) {
     if (DoctorDetails.valid == true) {
       res.status(200).json({
-        id:DoctorDetails._id,
+        id: DoctorDetails._id,
         url: DoctorDetails.url,
         email: DoctorDetails.email,
         token: generateToken(DoctorDetails._id),
@@ -67,10 +67,10 @@ const verifyDoctor = asyncHandler(async (req, res) => {
         addres: DoctorDetails.address,
         Qualification: DoctorDetails.Qualification,
         specailist: DoctorDetails.specailist,
-        place: DoctorDetails.place,    
+        place: DoctorDetails.place,
         About: DoctorDetails.About,
         Phone: DoctorDetails.phone,
-        time: DoctorDetails.time,  
+        time: DoctorDetails.time,
       });
     } else {
       res.status(400);
@@ -80,19 +80,72 @@ const verifyDoctor = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid Email or Password!");
   }
-});  
+});
 
-const viewAllAppointment=asyncHandler(async(req,res)=>{
-const doctorId=req.params.id;
+const viewAllAppointment = asyncHandler(async (req, res) => {
+  const doctorId = req.params.id;
 
-const Patients=await Patient.find({ doctorId }) 
-     
-if(Patients){
-  res.status(200).json(Patients)
-}else{
-  res.status(400)
-  throw new Error("Wrong")
-}
-})  
-module.exports = {verifyDoctor,addDoctors,viewAllAppointment};
-    
+  const Patients = await Patient.find({ doctorId });
+
+  if (Patients) {
+    res.status(200).json(Patients);
+  } else {
+    res.status(400);
+    throw new Error("Wrong");
+  }
+});
+const todayAppointment = asyncHandler(async (req, res) => {
+  const doctorId = req.params.id;
+  const valid = true;
+  const pick = new Date();
+  const date = pick.toLocaleDateString("en-CA");
+  console.log(doctorId, date);
+  const appoinment = await Patient.find({ doctorId, date, valid });
+
+  if (appoinment) {
+    res.status(200).json(appoinment);
+  } else {
+    res.status(400).json("No Appointments");
+  }
+});
+const appointmentFinished = asyncHandler(async (req, res) => {
+  console.log("ff");
+  const id = req.body.id;
+  const prscrioption = req.body.prscrioption;
+  const _id = id;
+
+  const valid = await Patient.findByIdAndUpdate(
+    _id,
+    {
+      Medcine: prscrioption,
+      valid: false,
+    },
+    {
+      new: true,
+    }
+  );
+  if (valid) {
+    console.log("true");
+    res.status(200).json(valid);
+  } else {
+    console.log("tr");
+    res.status(401).json("Invalid Details");
+  }
+});
+const deleteAppointment = asyncHandler(async (req, res) => {
+  const _id = req.params.id;
+  const Delet = await Patient.findByIdAndDelete(_id)
+  if (Delet) {
+    res.status(200).json(Delet)
+  } else {
+    res.status(400).json("Invalid User")
+  }
+});
+module.exports = {
+  verifyDoctor,
+  addDoctors,
+  viewAllAppointment,
+  todayAppointment,
+  appointmentFinished,
+  deleteAppointment,
+};

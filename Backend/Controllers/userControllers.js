@@ -118,8 +118,9 @@ const viewDepartmetDoctor = asyncHandler(async (req, res) => {
 });
 const addPatient = asyncHandler(async (req, res) => {
   console.log(req.body);
-  const { name, phone, message, date, selectedTime, doctorId, userId } =
+  const { name, phone, message, date, selectedTime, doctorId, userId,selectedDay} =
     req.body;
+
 
   //Today
   // const day=new Date()
@@ -129,19 +130,22 @@ const addPatient = asyncHandler(async (req, res) => {
   var TotalPatient = 0;
 
   const doctorData = await Doctor.findById({ _id });
-  console.log(doctorData, "fffffffffffff");
+  console.log(doctorData,selectedDay,"fffffffffffff");
 
   doctorData.time.map((obj) => {
-    if (selectedTime == obj.Time) {
+    if (selectedTime == obj.Time && obj.Day== selectedDay ) {
+      console.log(selectedTime,obj.Time,"ff");
+      console.log(obj,";;");
       TotalPatient = obj.Patient;
     }
   });
   console.log(TotalPatient, "vbbbbbbbbbbbbbbbbbb");
-  const TokenNumber = await Patient.find({ doctorId,date});
+  const TokenNumber = await Patient.find({doctorId,date});
   console.log(TokenNumber,"Toen");
   const TotalAppointment = TokenNumber.length;
   console.log("ssssssss", TotalAppointment);
   console.log("zzzzzzzz", TotalPatient);
+   const valid=true
 
   if (TotalAppointment < TotalPatient) {
     const Token=TotalAppointment+1;
@@ -154,7 +158,9 @@ const addPatient = asyncHandler(async (req, res) => {
       selectedTime,
       doctorId,
       userId,
-      Token
+      Token,
+      valid,
+   
     });
     if (patients) {
 

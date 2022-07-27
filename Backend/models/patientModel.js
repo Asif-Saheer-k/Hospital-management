@@ -35,6 +35,15 @@ const patientSchema = mongoose.Schema(
         type: Number,
         require: true,
       },
+      Medcine:{
+        type:String,
+        require:false
+      },
+      valid:{
+        type:Boolean,
+        require:false
+      
+      }
   },
   {
     timestamps: true,
