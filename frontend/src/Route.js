@@ -29,6 +29,7 @@ import ProfilePage from './Component/Doctor/pages/profilePage/ProfilePage';
 import Allappointment from './Component/Doctor/pages/allAppointment/Allappointment';
 import Appoinment from './Component/User/Appoinment/Appoinment';
 import UserProfile from './Component/User/userProfile/UserProfile';
+import PatientPage from './Component/Doctor/pages/PatientPage/PatientPage';
 
 function Router() {
   return (
@@ -58,12 +59,15 @@ function Router() {
       <Route path='/admin/view-single-doctor/:id' element={[<SideBar/>,<ViewDoctor/>]}/>
       <Route path='/admin/view-Department' element={[<SideBar/>,<Department/>]}/>
       
+      
 
       <Route path='/register' element={[< AddDoctors/>]}/>
       <Route path='/doctor' element={[<DoctorLogin/>]}/>
       <Route path='/doctors/doctors-home' element={[<DoctorHome/>]}/>
       <Route path='/doctors/view-profile' element={[<ProfilePage/>]}/> 
-      <Route path= '/doctors/view-all-appoinment' element={[<Allappointment/>]} />   
+      <Route path= '/doctors/view-all-appoinment' element={[<Allappointment/>]} />
+      <Route path= '/doctors/veiw-allPatient' element={[<PatientPage/>]} />
+
      
 
     </Routes> 

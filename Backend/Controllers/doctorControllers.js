@@ -141,6 +141,19 @@ const deleteAppointment = asyncHandler(async (req, res) => {
     res.status(400).json("Invalid User")
   }
 });
+const viewAllPatient=asyncHandler(async(req,res)=>{
+ const  doctorId=req.params.id
+ const valid=false        
+ console.log(doctorId);
+ const patients=await Patient.find({doctorId,valid})
+ console.log(patients);
+ if(patients){
+  res.status(200).json(patients)
+ }else{
+  res.status(400).json("somthing is wrong")
+ }
+
+})
 module.exports = {
   verifyDoctor,
   addDoctors,
@@ -148,4 +161,5 @@ module.exports = {
   todayAppointment,
   appointmentFinished,
   deleteAppointment,
+  viewAllPatient
 };

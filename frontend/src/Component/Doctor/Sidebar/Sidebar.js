@@ -46,7 +46,7 @@ function Sidebar() {
           </Link>
         </li>
         <li class="nav-item active">
-          <Link to='/doctors/view-all-appoinment' class="nav-link" >
+          <Link to='/doctors/veiw-allPatient' class="nav-link" >
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Patients</span>
           </Link>

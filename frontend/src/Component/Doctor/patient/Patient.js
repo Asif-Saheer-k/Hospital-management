@@ -62,7 +62,7 @@ function createData(name, code, population, size) {
 //   createData("Brazil", "BR", 210147125, 8515767),
 // ];
 
-export default function ColumnGroupingTable() {
+export default function Patient() {
   const [page, setPage] = React.useState(0);
   const [doctId, setDoctorId] = useState();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -90,10 +90,10 @@ export default function ColumnGroupingTable() {
           headers: {
             "Content-type": "application/json",
           },
-        };
+        }
 
         const { data } = await axios.get(
-          `/doctor/view-all-appointment/${id}`,
+          `/doctor/view-all-patient/${id}`,
           config
         );
         console.log(data);
@@ -111,7 +111,7 @@ export default function ColumnGroupingTable() {
           <TableHead>
             <TableRow>
               <TableCell align="center" colSpan={5}>
-                ALL APPOINTMENT LIST
+                ALL PATIENTS LIST
               </TableCell>
             </TableRow>
             <TableRow>

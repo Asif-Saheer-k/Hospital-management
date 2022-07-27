@@ -7,6 +7,7 @@ const generateToken = require("../utils/generateToken");
 const serviceSsid = "VA1fc8601062b890c4c88cc2b48cb6af2d";
 const AccountSsid = "AC1e87d53421c94f577a326da40ae89172";
 const token = "f5a98f9b70abf8793dcf0900f76e753e";
+const bcrypt = require("bcryptjs");
 const client = require("twilio")(AccountSsid, token);
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -15,7 +16,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password, phoneNumber, address, genders } = req.body;
 
   const uerExists = await User.findOne({ email });
-  if (uerExists) {
+  if (uerExists) {  
     res.status(400);
     throw new Error("User Already Exists");
   }
@@ -50,6 +51,7 @@ const verifyUser = asyncHandler(async (req, res) => {
       name: user.username,
       email: user.email,
       phone:user.phoneNumber,
+      Address:user.address,
       token: generateToken(user._id),
     });
   } else {
@@ -194,6 +196,32 @@ const deleteAppointment=async(req,res)=>{
     console.log("kooi");
   }
 }
+const updateUserProfile=asyncHandler(async(req,res)=>{
+  const { username,email,password,phoneNumber,address,oldPassword } = req.body;
+  const user = await User.findOne({ email });
+  const _id=user._id
+  console.log(_id);
+  console.log(user);
+  if(await bcrypt.compare(oldPassword,user.password)) {
+    console.log("sucess");
+    const user = await User.findByIdAndUpdate(_id,{
+      username,
+      email,
+      password,
+      phoneNumber,
+      address,
+    },{new:true});
+    console.log("sucess");
+
+   res.status(200).json("success")
+  }else{
+    console.log("failrd");
+    res.status(400).json("Invalid Password")
+  }
+
+
+
+})
 
 module.exports = {
   registerUser,
@@ -203,5 +231,6 @@ module.exports = {
   viewDepartmetDoctor,
   addPatient,
   viewUserAppointment,
-  deleteAppointment
+  deleteAppointment,
+  updateUserProfile
 };
