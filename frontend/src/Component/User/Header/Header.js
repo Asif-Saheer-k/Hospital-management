@@ -15,10 +15,12 @@ export const Header = () => {
   const navigate = useNavigate({});
   const [userInfo, setuserDetails] = useState("");
   const [department, setDepartment] = useState([]);
-  const user= useSelector((state) => state.user.value);
+  const [dropdown, setDropdown] = useState(false);
+  const [departmentDropdown, setDepartmentDropdown] = useState(false);
+  const [dropdownbuttton,setdropdownbutton]=useState(false)
+  const user = useSelector((state) => state.user.value);
   useEffect(() => {
     if (user) {
-      
       // console.log(user);
       // const json = JSON.parse(user);
       // const name = json.name;
@@ -52,7 +54,32 @@ export const Header = () => {
     navigate(`/view-doctor-department/${dept}`);
   };
   const daata = useSelector((state) => state.user.value);
+  const viewdropdownDoctor = () => {
+    console.log("ff");
+    if (dropdown == false) {
+      setDropdown(true);
+    } else {
+      setDropdown(false);
+    }
+  };
 
+  // useEffect(() => {}, [dropdown]);
+  const viewDepartmentdropdown = () => {
+    if (departmentDropdown == false) {
+      setDepartmentDropdown(true);
+    } else {
+      setDepartmentDropdown(false);
+    }
+  };
+  const viewDropdownButton=()=>{
+    if(dropdownbuttton==false){
+      setdropdownbutton(true)
+    }else{
+      setdropdownbutton(false)
+    }
+
+  }
+  
   return (
     <div>
       <header>
@@ -101,11 +128,11 @@ export const Header = () => {
               aria-controls="navbarmain"
               aria-expanded="false"
               aria-label="Toggle navigation"
+              onClick={viewDropdownButton}
             >
               <span class="icofont-navigation-menu"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarmain">
+         {dropdownbuttton?<div class=" collapse navbar-collapse" id="navbarmain">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                   <Link class="nav-link" to="/">
@@ -123,61 +150,108 @@ export const Header = () => {
                   </Link>
                 </li>
 
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    id="dropdown02"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                {departmentDropdown ? (
+                  <li
+                    class="nav-item dropdown"
+                    onClick={viewDepartmentdropdown}
                   >
-                    Department
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                    {department.map((obj) => {
-                      return (
-                        <li>
-                          <a
-                            class="dropdown-item"
-                            key={obj._i}
-                            onClick={() => {
-                              viewDepartmets(obj.Departments);
-                            }}
-                          >
-                            {obj.Departments}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </li>
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown02"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Department
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                      {department.map((obj) => {
+                        return (
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              key={obj._i}
+                              onClick={() => {
+                                viewDepartmets(obj.Departments);
+                              }}
+                            >
+                              {obj.Departments}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                ) : (
+                  <li class="nav-item " onClick={viewDepartmentdropdown}>
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown02"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Department
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                      {department.map((obj) => {
+                        return (
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              key={obj._i}
+                              onClick={() => {
+                                viewDepartmets(obj.Departments);
+                              }}
+                            >
+                              {obj.Departments}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                )}
 
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    id="dropdown03"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Doctors
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                    <li>
-                      <Link to="/view-doctors" class="dropdown-item">
-                        Doctors
-                      </Link>
-                    </li>
-                
-                    {/* <li>
-                      {userInfo &&
-                      <Link to='' class="dropdown-item">
-                      View Appoinment
-                      </Link>
-                         }
-                    </li> */}
-                  </ul>
-                </li>
+                {dropdown ? (
+                  <li class="nav-item dropdown" onClick={viewdropdownDoctor}>
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown03"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Doctors
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                      <li>
+                        <Link to="/view-doctors" class="dropdown-item">
+                          Doctors
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                ) : (
+                  <li class="nav-item" onClick={viewdropdownDoctor}>
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown03"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Doctors
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                      <li>
+                        <Link to="/view-doctors" class="dropdown-item">
+                          Doctors
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                )}
 
                 {/* <li class="nav-item dropdown">
                   <a
@@ -228,7 +302,7 @@ export const Header = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link class="dropdown-item" to='/view-appointments'>
+                        <Link class="dropdown-item" to="/view-appointments">
                           APPOINTMENT
                         </Link>
                       </li>
@@ -262,7 +336,212 @@ export const Header = () => {
                   </div>
                 )}
               </ul>
-            </div>
+            </div> :<div class="navbar-collapse" id="navbarmain">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                  <Link class="nav-link" to="/">
+                    Home
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link class="nav-link" to="/about">
+                    About
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link class="nav-link" to="/services">
+                    Services
+                  </Link>
+                </li>
+
+                {departmentDropdown ? (
+                  <li
+                    class="nav-item dropdown"
+                    onClick={viewDepartmentdropdown}
+                  >
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown02"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Department
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                      {department.map((obj) => {
+                        return (
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              key={obj._i}
+                              onClick={() => {
+                                viewDepartmets(obj.Departments);
+                              }}
+                            >
+                              {obj.Departments}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                ) : (
+                  <li class="nav-item " onClick={viewDepartmentdropdown}>
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown02"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Department
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown02">
+                      {department.map((obj) => {
+                        return (
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              key={obj._i}
+                              onClick={() => {
+                                viewDepartmets(obj.Departments);
+                              }}
+                            >
+                              {obj.Departments}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                )}
+
+                {dropdown ? (
+                  <li class="nav-item dropdown" onClick={viewdropdownDoctor}>
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown03"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Doctors
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                      <li>
+                        <Link to="/view-doctors" class="dropdown-item">
+                          Doctors
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                ) : (
+                  <li class="nav-item" onClick={viewdropdownDoctor}>
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown03"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Doctors
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                      <li>
+                        <Link to="/view-doctors" class="dropdown-item">
+                          Doctors
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                )}
+
+                {/* <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="blog-sidebar.html"
+                    id="dropdown05"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Blog <i class="icofont-thin-down"></i>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                    <li>
+                      <a class="dropdown-item" href="blog-sidebar.html">
+                        Blog with Sidebar
+                      </a>
+                    </li>
+
+                    <li>
+                      <a class="dropdown-item" href="blog-single.html">
+                        Blog Single
+                      </a>
+                    </li>
+                  </ul>
+                </li> */}
+
+                <li class="nav-item">
+                  <a class="nav-link" href="contact.html">
+                    Contact
+                  </a>
+                </li>
+                {userInfo ? (
+                  <li class="nav-item dropdown" style={{ marginLeft: "15%" }}>
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown03"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      {userInfo}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                      <li>
+                        <Link class="dropdown-item" to="/view-profile">
+                          PROFILE
+                        </Link>
+                      </li>
+                      <li>
+                        <Link class="dropdown-item" to="/view-appointments">
+                          APPOINTMENT
+                        </Link>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" onClick={LOGOUT} href="/login">
+                          LOGOUT
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                ) : (
+                  <div className="d-flex" style={{ marginLeft: "10%" }}>
+                    <li class="nav-item">
+                      <Link
+                        to="/login"
+                        className="btn btn-info rounded-pill text-center"
+                      >
+                        LOGIN
+                      </Link>
+                    </li>
+
+                    <li class="nav-item" style={{ marginLeft: "5%" }}>
+                      <Link
+                        to="/signup"
+                        className="btn rounded-pill text-center"
+                        style={{ backgroundColor: "#0062CC", color: "white" }}
+                      >
+                        REGISTER
+                      </Link>
+                    </li>
+                  </div>
+                )}
+              </ul>
+            </div>}
+            
           </div>
         </nav>
       </header>

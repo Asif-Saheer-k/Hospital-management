@@ -35,7 +35,7 @@ function AddDoctors() {
 
   useEffect(() => {
     (async function () {
-      console.log("ffffffffffffffffffffffffffffffffffffffffffffffffff");
+    
       try {
         const config = {
           headers: {
@@ -150,7 +150,7 @@ function AddDoctors() {
   const handleChanges = (event) => {
     setCurrency(event.target.value);
   };
-
+ 
   //cuenciew
 
   //check box

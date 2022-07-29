@@ -5,7 +5,8 @@ import Button from "@mui/material/Button";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 const style = {
   position: "absolute",
   top: "50%",
@@ -131,32 +132,10 @@ function Appoinment() {
                           <p>{obj1.specailist}</p>
 
                           <ul class="list-inline mt-4 doctor-social-links">
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="icofont-facebook"></i>
-                              </a>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="icofont-twitter"></i>
-                              </a>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="icofont-skype"></i>
-                              </a>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="icofont-linkedin"></i>
-                              </a>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="icofont-pinterest"></i>
-                              </a>
-                            </li>
-                          </ul>
+                            <a href='https://wa.me/7034515384'>
+                          <i class="fa-lg fa-brands fa-whatsapp" style={{color:"green"}} ></i> <span>{obj1.phone}</span>
+                          </a>               
+                          </ul>  
                         </div>
                       </div>
                     );

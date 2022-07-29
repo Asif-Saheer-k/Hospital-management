@@ -7,15 +7,21 @@ import '../Style/plugins/slick-carousel/slick/slick-theme.css'
 import '../Style/plugins/slick-carousel/slick/slick.css'
 import '../Style/plugins/icofont/icofont.min.css'
 import '../Style/plugins/bootstrap/css/bootstrap.min.css'
+import InsertCommentIcon from '@mui/icons-material/InsertComment';
 
 function Landing() {
 const navigate=useNavigate()
   return (
     <div>
+		
       <section class="banner">
+		
+	
 	<div class="container">
 		<div class="row">
+		
 			<div class="col-lg-6 col-md-12 col-xl-7">
+			
 				<div class="block">
 					<div class="divider mb-3"></div>
 					<span class="text-uppercase text-sm letter-spacing ">Total Health care solution</span>
@@ -24,12 +30,19 @@ const navigate=useNavigate()
 					<p class="mb-4 pr-5">A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</p>
 					<div class="btn-container  ">
 					<Link to='/appoinment' className="btn btn-danger rounded-pill btn-icon btn-round-full" target="_blank">Make appointment <i class="icofont-simple-right ml-2  "></i></Link>
+					<div style={{}}>
+					<InsertCommentIcon sx={{fontSize:"50px",marginLeft:"180%",color:"red",position:"a"}}/>
 					</div>
 				</div>
+			
+				
 			</div>
+			</div>
+					
 		</div>
 	</div>
 </section>
+
 <section class="features">
 	<div class="container">
 		<div class="row">

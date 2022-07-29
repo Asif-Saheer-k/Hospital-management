@@ -82,6 +82,9 @@ function SingleDoctor() {
     });
   }
   const onSubmit = async (data) => {
+    if(!user){
+      navigate('/login')
+    }
     if(availableTime){
     console.log(data,"ddddddddddddddddddddddddddddd");
     console.log(selectedDate);
@@ -205,10 +208,10 @@ function SingleDoctor() {
                   <Link
                     to=""
                     class="btn btn-main-2 btn-round-full"
-                    style={{ backgroundColor: "#223A66" }}
+                    style={{ backgroundColor: "#223A66" ,color:"white"}}
                     onClick={handleOpen}
                   >
-                    Make Ofline Appoinment
+                    Make Offline Appoinment
                     <i class="icofont-simple-right ml-2  "></i>
                   </Link>
 
@@ -413,14 +416,7 @@ function SingleDoctor() {
                     </Fade>
                   </Modal>
 
-                  <Link
-                    to=""
-                    class="btn btn-main-2 btn-round-full "
-                    style={{ backgroundColor: "#123A66", marginTop: "5%" }}
-                  >
-                    Make Online Appoinment
-                    <i class="icofont-simple-right ml-2  "></i>
-                  </Link>
+                
                 </div>
 
                 <div className="col-md-6" style={{ marginLeft: "0%" }}>
