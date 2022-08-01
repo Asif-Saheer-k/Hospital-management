@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Login.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import {logInDoctor} from '../../Redux/Slices/doctorData' 
-
-function Login() {
+import {Link} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+  
+function Login() {  
+  const doctorLogin = useSelector((state) => state.doctor.value);
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const [error, setError] = useState();
@@ -44,7 +47,13 @@ function Login() {
       setError("Not Verified")
    
     }
-  };
+  }
+  useEffect(()=>{
+    if(doctorLogin){
+      navigate('/doctors/doctors-home')
+    }
+
+  },[]);
   return (
     <div>
       <div class="wrapper">
@@ -103,8 +112,11 @@ function Login() {
             Login
           </button>
         </form>
+        <div class="text-center fs-6">
+          <Link to="/register">Register</Link>
+        </div>
       </div>
-    </div>
+    </div> 
   );
 }
 

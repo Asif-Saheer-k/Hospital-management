@@ -505,10 +505,7 @@ a:focus {
     font-size: 38px;
     line-height: 50px;
   }
-  .banner {
-    min-height: 450px;
-    background: #fff !important;
-  }
+
 }
 
 @media (max-width: 400px) {
@@ -516,10 +513,7 @@ a:focus {
     font-size: 28px;
     line-height: 40px;
   }
-  .banner {
-    min-height: 450px;
-    background: #fff !important;
-  }
+
 }
 
 @media (max-width: 768px) {
@@ -527,15 +521,11 @@ a:focus {
     font-size: 56px;
     line-height: 70px;
   }
-  .banner {
-    background: #fff !important;
-  }
+
 }
 
 @media (max-width: 992px) {
-  .banner {
-    background: #fff !important;
-  }
+ 
 }
 
 .about-img img {

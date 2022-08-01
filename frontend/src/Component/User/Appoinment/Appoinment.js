@@ -15,7 +15,7 @@ const style = {
   width: 700,
   bgcolor: "background.paper",
   border: "2px solid #000",
-  boxShadow: 24,
+  boxShadow: 24,   
   pt: 2,
   px: 4,
   pb: 3,
@@ -82,7 +82,7 @@ function Appoinment() {
               if (obj._id == id) {
                 index = appoinment.indexOf(obj);
               }
-            });
+            })
             const test = [...appoinment];
 
             test.splice(index, 1);
@@ -145,7 +145,7 @@ function Appoinment() {
 
               <div class="col-lg-8 col-md-6">
                 <div class="doctor-details mt-4 mt-lg-0 ms-auto">
-                  <h2 class="text-md">Protocol</h2>
+                  <h2 class="text-md">Appoinment</h2>
                   <div class="divider my-4"></div>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.

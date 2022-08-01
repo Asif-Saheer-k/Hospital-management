@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 function TodayAppoitmnet() {
   const [todayAppointment, setTodayAppointment] = useState([]);
   const [next, setNext] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  const [refresh,setRefresh] = useState(false);
 
   const doctor = useSelector((state) => state.doctor.value);
 
@@ -23,14 +23,14 @@ function TodayAppoitmnet() {
         const { data } = await axios.get(
           `/doctor/Today-appoitment/${doctor.id}`
         );
-
+        setRefresh(false);
         setTodayAppointment(data);
         const nextPatient = data[0];
         console.log(nextPatient, "lll");
         if (nextPatient) {
           setNext(nextPatient);
         }
-        setRefresh(false);
+       
       } catch (error) {
         console.log(error);
       }
@@ -38,6 +38,8 @@ function TodayAppoitmnet() {
   }, [refresh]);
 
   const onSubmit = async (data) => {
+    
+    setRefresh(true);
     reset();
     console.log(data);
     console.log("fi");
@@ -58,18 +60,17 @@ function TodayAppoitmnet() {
         },
         config
       );
-      setRefresh(true);
-      setRefresh(false);
+    
     } catch (error) {
       console.log(error);
     }
   };
   const deleteAppointment = async (id) => {
+    setRefresh(true);
     console.log("fis");
     try {
       const data = await axios.delete(`/doctor/delete-appoinments/${id}`);
-      setRefresh(true);
-      setRefresh(false);
+ 
     } catch (error) {
       console.log(error);
     }

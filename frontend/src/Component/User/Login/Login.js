@@ -96,13 +96,13 @@ function Login(props) {
 
   return (
     <div>
-      <div class="wrapper">
-        <div class="logo">
+      <div class="wrapper" style={{textAlign:"center"}}>
+     
           <img
-            src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png"
+            src="http://res.cloudinary.com/www-menscarts-shop/image/upload/v1657811514/fqg8cdvhno1hrudscnkk.png"
             alt=""
           />
-        </div>
+       
 
         {who && <div class="text-center mt-4 name">{who}asif</div>}
         <form onSubmit={handleSubmit(onSubmit)} class="p-3 mt-3">

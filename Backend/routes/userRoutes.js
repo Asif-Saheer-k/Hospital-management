@@ -15,6 +15,7 @@ const {
   viewUserAppointment,
   deleteAppointment,
   updateUserProfile,
+  viewAllNumberPatient
 } = require("../controllers/userControllers");
 
 router.route("/register").post(registerUser);
@@ -29,5 +30,6 @@ router.route("/patient-details").post(addPatient);
 router.route("/view-appointments/:id").get(viewUserAppointment);
 router.route("/cancel-appointmnets/:id").delete(deleteAppointment);
 router.route("/update-profile").put(updateUserProfile);
+router.route("/viewAllPatient").get(viewAllNumberPatient)
 
 module.exports = router;

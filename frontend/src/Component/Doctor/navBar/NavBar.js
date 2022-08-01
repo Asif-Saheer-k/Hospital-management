@@ -79,7 +79,7 @@ function NavBar() {
                 </div>
               </li>
 
-              <li class="nav-item dropdown no-arrow mx-1">
+              {/* <li class="nav-item dropdown no-arrow mx-1">
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -142,9 +142,9 @@ function NavBar() {
                     Show All Alerts
                   </a>
                 </div>
-              </li>
+              </li> */}
 
-              <li className="nav-item dropdown no-arrow mx-1 ">
+              {/* <li className="nav-item dropdown no-arrow mx-1 ">
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -242,7 +242,7 @@ function NavBar() {
                     Read More Messages
                   </a>
                 </div>
-              </li>
+              </li> */}
 
               <div class="topbar-divider d-none d-sm-block"></div>
 

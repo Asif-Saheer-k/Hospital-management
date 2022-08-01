@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import Carousel from "react-bootstrap/Carousel";
 import ChatIcon from "@mui/icons-material/Chat";
 import {useNavigate,Link} from 'react-router-dom'
@@ -8,12 +8,70 @@ import '../Style/plugins/slick-carousel/slick/slick.css'
 import '../Style/plugins/icofont/icofont.min.css'
 import '../Style/plugins/bootstrap/css/bootstrap.min.css'
 import InsertCommentIcon from '@mui/icons-material/InsertComment';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import axios from "axios";
+
+const style = {
+	position: 'absolute',
+	top: '50%',
+	left: '90%',
+	transform: 'translate(-50%, -50%)',
+	width: 500,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+  };
 
 function Landing() {
+	const [patientLength,setPatientLength]=useState()
+	const [doctorLength,setDoctorLength]=useState()
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
 const navigate=useNavigate()
+
+useEffect(()=>{
+	(async function (){
+
+	
+	try{
+	const {data}=await axios.get('/user/viewAllPatient')
+     setPatientLength(data.length);
+	}catch(error){
+   console.log(error);
+	}
+})()
+},[])
+useEffect(()=>{
+	(async function (){
+
+	
+	try{
+	const {data}=await axios.get('/user/view-All-doctors')
+     setDoctorLength(data.length);
+	}catch(error){
+   console.log(error);
+	}
+})()
+},[])
   return (
     <div>
-		
+		<InsertCommentIcon sx={{fontSize:"60px",marginLeft:"90%",marginTop:"30%",position:"fixed",color:"white",backgroundColor:"#223A66",zIndex:"1",padding:"10px",borderRadius:"30px",cursor:"pointer"}}  onClick={handleOpen}/>
+		<Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        
+        </Box>
+      </Modal>
       <section class="banner">
 		
 	
@@ -30,9 +88,9 @@ const navigate=useNavigate()
 					<p class="mb-4 pr-5">A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</p>
 					<div class="btn-container  ">
 					<Link to='/appoinment' className="btn btn-danger rounded-pill btn-icon btn-round-full" target="_blank">Make appointment <i class="icofont-simple-right ml-2  "></i></Link>
-					<div style={{}}>
-					<InsertCommentIcon sx={{fontSize:"50px",marginLeft:"180%",color:"red",position:"a"}}/>
-					</div>
+					
+					
+					
 				</div>
 			
 				
@@ -65,9 +123,9 @@ const navigate=useNavigate()
 						<span>Timing schedule</span>
 						<h4 class="mb-3">Working Hours</h4>
 						<ul class="w-hours list-unstyled">
-		                    <li class="d-flex justify-content-between">Sun - Wed : <span>8:00 - 17:00</span></li>
-		                    <li class="d-flex justify-content-between">Thu - Fri : <span>9:00 - 17:00</span></li>
-		                    <li class="d-flex justify-content-between">Sat - sun : <span>10:00 - 17:00</span></li>
+		                    <li class="d-flex justify-content-between">Sun - Tue : <span>8:00 - 17:00</span></li>
+		                    <li class="d-flex justify-content-between">Wed - Thu : <span>9:00 - 17:00</span></li>
+		                    <li class="d-flex justify-content-between">Fri - Sat : <span>10:00 - 17:00</span></li>
 		                </ul>
 					</div>
 				
@@ -111,19 +169,19 @@ const navigate=useNavigate()
 </section>
 <section class="cta-section ">
 	<div class="container">
-		<div class="cta position-relative">
+		<div class="cta position-relative mb-5">
 			<div class="row">
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="counter-stat">
 						<i class="icofont-doctor"></i>
-						<span class="h3">58</span>k
-						<p>Happy People</p>
+						<span class="h3">{patientLength}</span>k
+						<p >Happy People</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="counter-stat">
 						<i class="icofont-flag"></i>
-						<span class="h3">700</span>+
+						<span class="h3">10</span>+
 						<p>Surgery Comepleted</p>
 					</div>
 				</div>
@@ -131,15 +189,15 @@ const navigate=useNavigate()
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="counter-stat">
 						<i class="icofont-badge"></i>
-						<span class="h3">40</span>+
+						<span class="h3">{doctorLength}</span>+
 						<p>Expert Doctors</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="counter-stat">
 						<i class="icofont-globe"></i>
-						<span class="h3">20</span>
-						<p>Worldwide Branch</p>
+						<span class="h3">2</span>
+						<p>Branch</p>
 					</div>
 				</div>
 			</div>
@@ -236,7 +294,7 @@ const navigate=useNavigate()
 		</div>
 	</div>
 </section>
-<section class="section appoinment">
+{/* <section class="section appoinment">
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-lg-6 ">
@@ -315,9 +373,9 @@ const navigate=useNavigate()
 			</div>
 		</div>
 	</div>
-</section>
+</section> */}
 
-<section class="section clients">
+{/* <section class="section clients">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-7">
@@ -384,7 +442,7 @@ const navigate=useNavigate()
 			</div>
 		</div>
 	</div>
-</section>
+</section> */}
      
     </div>
   );

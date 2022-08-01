@@ -19,6 +19,11 @@ const patientSchema = mongoose.Schema(
       type: String,
       require: true,
     },
+    Age:{
+      type:Number,
+      require:true
+
+    },
     selectedTime: {
       type: String,
       require: true,

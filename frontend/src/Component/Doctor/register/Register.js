@@ -10,9 +10,8 @@ import { useNavigate } from "react-router-dom";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { Link } from "react-router-dom";
 
-import Checkbox from "@mui/material/Checkbox";
 
 function AddDoctors() {
   const [fileInputState, setFileInputState] = useState("");
@@ -171,18 +170,10 @@ function AddDoctors() {
     };
   };
   return (
-    <section class="dashboard">
-      <div class="top" style={{ backgroundColor: "#328090" }}>
-        <i class="uil uil-bars sidebar-toggle"></i>
-
-        {/* <div class="search-box" style={{ backgroundColor: "white" }}>
-          <i class="uil uil-search"></i>
-          <input type="text" placeholder="Search here..." />
-        </div>
-
-        <img src="images/profile.jpg" alt="" /> */}
-      </div>
-      <div className="text-center" style={{ marginTop: "10%" }}>
+    <section class="dashboard" >
+      <div style={{ backgroundColor:"whitesmoke"}}>
+   
+      <div className="text-center">
         <h4>Enter Doctor Details</h4>
       </div>
       <Box
@@ -1006,8 +997,12 @@ function AddDoctors() {
           <button type="submit" className="btn btn-primary">
             submit
           </button>
+          <Link  to='/doctor'  className="btn btn-primary ms-3">
+            Login
+          </Link>
         </div>
       </Box>
+      </div>
     </section>
   );
 }

@@ -86,16 +86,16 @@ function SideBar() {
               </Link>
             </li>
             <li>
-              <a href="#">
+              <Link to='/admin/view-all-patients'>
                 <i class="uil uil-pen" style={{ color: "whitesmoke" }}></i>
                 <span class="link-name">Patient</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#">
+              <Link to="/admin/view-all-Appointment">
                 <i class="uil uil-book" style={{ color: "white" }}></i>
                 <span class="link-name">Appointment</span>
-              </a>
+              </Link>
             </li>
             <li>
               <Link

@@ -52,7 +52,7 @@ export default function BasicTable() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
+            <TableCell>Name</TableCell>      
             <TableCell align="left">Email</TableCell>
             <TableCell align="left">phoneNumber</TableCell>
            

@@ -5,6 +5,7 @@ const Department = require("../models/departmentModel");
 const generateToken = require("../utils/generateToken");
 const Doctor = require("../models/doctorModel");
 const { cloudinary } = require("../utils/cloudinary");
+const Patient = require("../models/patientModel");
 
 const adminLOgin = (req, res) => {
   const email = process.env.EMAIL;
@@ -95,8 +96,7 @@ const deleteDoctors = asyncHandler(async (req, res) => {
 });
 const allDoctors = asyncHandler(async (req, res) => {
   const valid = true;
-  const doctors = await Doctor.find({ valid });
-  console.log(doctors,'lllllll');
+  const doctors = await Doctor.find({ valid })
   if (doctors) {
     res.status(200).json(doctors);
   } else {
@@ -139,17 +139,29 @@ const deleteDepartment = asyncHandler(async (req, res) => {
     throw new Error("Invalid Error");
   }
 });
+const viewFullAppintment = asyncHandler(async(req,res)=>{
+  console.log('.......................................');
+  const valid=true
+  const Allappointment=await Patient.find({valid})
+  if(Allappointment){
+    console.log(Allappointment);
+    res.status(200).json(Allappointment)
+  }else{
+    res.status(400).json({erro:'error occure'})
+  }
 
+})
 module.exports = {
   adminLOgin,
   viewAllUser,
   uploadImage,
-  singleDoctor,
+  singleDoctor,  
   updateDoctorStatus,
-  viewRequest,
+  viewRequest,    
   deleteDoctors,
   allDoctors,
   addDepartment,
   viewDepartment,
   deleteDepartment,
+  viewFullAppintment
 };

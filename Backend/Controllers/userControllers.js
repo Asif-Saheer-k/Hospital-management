@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Doctor = require("../models/doctorModel");
 const Patient = require("../models/patientModel");
 const User = require("../models/userModels");
+
 const generateToken = require("../utils/generateToken");
 const serviceSsid = "VA1fc8601062b890c4c88cc2b48cb6af2d";
 const AccountSsid = "AC1e87d53421c94f577a326da40ae89172";
@@ -121,7 +122,7 @@ const viewDepartmetDoctor = asyncHandler(async (req, res) => {
 });
 const addPatient = asyncHandler(async (req, res) => {
   console.log(req.body);
-  const { name, phone, message, date, selectedTime, doctorId, userId,selectedDay} =
+  const { name, phone, message, date, selectedTime, doctorId, userId,selectedDay,Age} =
     req.body;
 
 
@@ -158,6 +159,7 @@ const addPatient = asyncHandler(async (req, res) => {
       phone,
       message,
       date,
+      Age,
       selectedTime,
       doctorId,
       userId,
@@ -219,9 +221,17 @@ const updateUserProfile=asyncHandler(async(req,res)=>{
     res.status(400).json("Invalid Password")
   }
 
-
-
 })
+const viewAllNumberPatient=asyncHandler(async(req,res)=>{
+  const valid=false
+  const Patients = await Patient.find({valid});
+  if(Patients){
+    res.status(200).json(Patients)
+  }else{
+     res.status(400).json("Invalid details")
+  }
+})
+
 
 module.exports = {
   registerUser,
@@ -232,5 +242,6 @@ module.exports = {
   addPatient,
   viewUserAppointment,
   deleteAppointment,
-  updateUserProfile
+  updateUserProfile,
+  viewAllNumberPatient,
 };

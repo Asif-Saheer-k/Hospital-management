@@ -103,7 +103,7 @@ export const Header = () => {
                 <div class="text-lg-right top-right-bar mt-2 mt-lg-0">
                   <a href="tel:+23-345-67890">
                     <span>Call Now : </span>
-                    <span class="h4">823-4565-13456</span>
+                    <span>823-4565-13456</span>
                   </a>
                 </div>
               </div>
@@ -139,16 +139,8 @@ export const Header = () => {
                     Home
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link" to="/about">
-                    About
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link class="nav-link" to="/services">
-                    Services
-                  </Link>
-                </li>
+               
+              
 
                 {departmentDropdown ? (
                   <li
@@ -278,11 +270,16 @@ export const Header = () => {
                     </li>
                   </ul>
                 </li> */}
-
+                  <li class="nav-item">
+                  <Link class="nav-link" to="/services">
+                    Services
+                  </Link>
+                </li>
+              
                 <li class="nav-item">
-                  <a class="nav-link" href="contact.html">
-                    Contact
-                  </a>
+                  <Link class="nav-link" to="/about">
+                    About
+                  </Link>
                 </li>
                 {userInfo ? (
                   <li class="nav-item dropdown" style={{ marginLeft: "15%" }}>
@@ -343,16 +340,7 @@ export const Header = () => {
                     Home
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link" to="/about">
-                    About
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link class="nav-link" to="/services">
-                    Services
-                  </Link>
-                </li>
+            
 
                 {departmentDropdown ? (
                   <li
@@ -483,10 +471,21 @@ export const Header = () => {
                   </ul>
                 </li> */}
 
-                <li class="nav-item">
+                {/* <li class="nav-item">
                   <a class="nav-link" href="contact.html">
                     Contact
                   </a>
+                </li> */}
+                 
+                <li class="nav-item">
+                  <Link class="nav-link" to="/services">
+                    Services
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link class="nav-link" to="/about">
+                    About
+                  </Link>
                 </li>
                 {userInfo ? (
                   <li class="nav-item dropdown" style={{ marginLeft: "15%" }}>

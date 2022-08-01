@@ -93,6 +93,7 @@ function SingleDoctor() {
     const name = data.Name;
     const phone = data.Number;
     const message = data.message;
+    const Age=data.Age;
     const date=selectedDate;
     const selectedTime=availableTime;
     const doctorId = doctor._id;
@@ -114,7 +115,8 @@ function SingleDoctor() {
           selectedTime,
           doctorId,
           userId,
-          selectedDay
+          selectedDay,
+          Age
         },
         config
       );
@@ -154,6 +156,7 @@ function SingleDoctor() {
     console.log("objtime", availableTime);
    
   };
+  const link=`https://wa.me/${doctor.phone}`
   return (
     <section class="section doctor-single">
       <div class="container">
@@ -168,7 +171,7 @@ function SingleDoctor() {
                 <p>{doctor.Qualification}</p>
 
                 <ul class="list-inline mt-4 doctor-social-links">
-                  <li class="list-inline-item">
+                  {/* <li class="list-inline-item">
                     <a href="#">
                       <i class="icofont-facebook"></i>
                     </a>
@@ -182,17 +185,18 @@ function SingleDoctor() {
                     <a href="#">
                       <i class="icofont-skype"></i>
                     </a>
-                  </li>
+                  </li> */}
                   <li class="list-inline-item">
-                    <a href="#">
-                      <i class="icofont-linkedin"></i>
+                    <a href={link}>
+                      <i class="icofont-whatsapp" style={{color:'green',fontSize:"20px"}}></i>
+                      {doctor.phone}
                     </a>
                   </li>
-                  <li class="list-inline-item">
+                  {/* <li class="list-inline-item">
                     <a href="#">
                       <i class="icofont-pinterest"></i>
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>
@@ -374,6 +378,28 @@ function SingleDoctor() {
                                         {errors.Number && (
                                           <small className="text-danger">
                                             {errors.Number.message}
+                                          </small>
+                                        )}
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <input
+                                            name="Age"
+                                            id="Age"
+                                            type="Number"
+                                            class="form-control"
+                                            placeholder="Enter Age"
+                                            {...register("Age", {
+                                              required: "Age is required",
+                                            })}
+                                            onKeyUp={() => {
+                                              trigger("Age");
+                                            }}
+                                          />
+                                        </div>
+                                        {errors.Age && (
+                                          <small className="text-danger">
+                                            {errors.Age.message}
                                           </small>
                                         )}
                                       </div>

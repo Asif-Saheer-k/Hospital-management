@@ -18,4 +18,5 @@ router.route("/appointment-finished").patch(appointmentFinished);
 router.route("/delete-appoinments/:id").delete(deleteAppointment);
 router.route("/view-all-patient/:id").get(viewAllPatient);
 
+
 module.exports = router;

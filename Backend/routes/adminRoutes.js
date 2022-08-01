@@ -11,8 +11,10 @@ const {
   allDoctors,
   addDepartment,
   viewDepartment,
-  deleteDepartment
+  deleteDepartment,
+  viewFullAppintment
 } = require("../Controllers/adminControllers");
+const { viewAllNumberPatient } = require("../Controllers/userControllers");
 const { verifyToken } = require("../middleware/jwtcheck");
 
 router.route("/login").post(adminLOgin);
@@ -26,5 +28,6 @@ router.route("/all-doctors").get(verifyToken,allDoctors);
 router.route("/add-department").post(verifyToken,addDepartment);
 router.route("/view-department").get(viewDepartment)
 router.route("/delete/department").delete(verifyToken,deleteDepartment)
-
+router.route("/view-all-patients").get(viewAllNumberPatient)
+router.route("/view-all-Appointment").get(viewFullAppintment)
 module.exports = router;

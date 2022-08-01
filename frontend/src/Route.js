@@ -30,6 +30,10 @@ import Allappointment from './Component/Doctor/pages/allAppointment/Allappointme
 import Appoinment from './Component/User/Appoinment/Appoinment';
 import UserProfile from './Component/User/userProfile/UserProfile';
 import PatientPage from './Component/Doctor/pages/PatientPage/PatientPage';
+import Patient from './Component/Admin/Patients/Patient';
+import Appointments from './Component/Admin/Appointment/Appointment';
+// import Chatt from './Component/User/chart/Chatt';
+// import Join from './Component/User/join/Join';
 
 function Router() {
   return (
@@ -48,16 +52,20 @@ function Router() {
       <Route path='/view-doctor-department/:departId' element={[<Header/>,<ViewallDoctor/>,<Footer/>]}/>
       <Route path='/view-appointments' element={[<Header/>,<Appoinment/>,<Footer/>]}/>
       <Route path='/view-profile' element={[<Header/>,<UserProfile/>,<Footer/>]}/>
+      {/* <Route path='/join' element={[<Header/>,<Join/>,<Footer/>]}/>
+      <Route path='/chart' element={[<Header/>,<Chatt/>,<Footer/>]}/> */}
       
        
        
-
+        
       <Route path='/admin' element={[<Login title="admin"/>]}/> 
       <Route path='/admin/adminHome' element={[<SideBar/>,<Dashboard/>]}/>
       <Route path='/admin/all-users' element={[<SideBar/>,<User/>]}/>
       <Route path='/admin/all-doctors' element={[<SideBar/>,<Doctors/>]}/>
       <Route path='/admin/view-single-doctor/:id' element={[<SideBar/>,<ViewDoctor/>]}/>
       <Route path='/admin/view-Department' element={[<SideBar/>,<Department/>]}/>
+      <Route path='/admin/view-all-patients' element={[<SideBar/>,<Patient/>]}/>
+      <Route path='/admin/view-all-Appointment' element={[<SideBar/>,<Appointments/>]}/>
       
       
 

@@ -72,8 +72,8 @@ function Signup() {
         <div class="col-md-3 register-left">
           {/* <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/> */}
           <h3>Welcome</h3>
-          <p>You are 30 seconds away from earning your own money!</p>
-          <input type="submit" name="" value="Login" />
+        
+          <input type="submit" name="" value="Login" onClick={()=>navigate('/login')} />
           <br />
         </div>
         <div class="col-md-9 register-right">

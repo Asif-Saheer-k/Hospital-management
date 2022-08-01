@@ -118,64 +118,7 @@ function About() {
 		</div>
 	</div>
 </section>
-<section class="section team">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-6">
-				<div class="section-title text-center">
-					<h2 class="mb-4">Meet Our Specialist</h2>
-					<div class="divider mx-auto my-4"></div>
-					<p>Today’s users expect effortless experiences. Don’t let essential people and processes stay stuck in the past. Speed it up, skip the hassles</p>
-				</div>
-			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-lg-3 col-md-6 col-sm-6">
-				<div class="team-block mb-5 mb-lg-0">
-					<img src="http://res.cloudinary.com/www-menscarts-shop/image/upload/v1657955743/ryvnem6hl0snefr70i9k.jpg" alt="" class="img-fluid w-100"/>
-
-					<div class="content">
-						<h4 class="mt-4 mb-0"><a href="doctor-single.html">John Marshal</a></h4>
-						<p>Internist, Emergency Physician</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-6 col-sm-6">
-				<div class="team-block mb-5 mb-lg-0">
-					<img src="http://res.cloudinary.com/www-menscarts-shop/image/upload/v1657955773/yijtzfuyiqsrvh90ga9q.jpg" alt="" class="img-fluid w-100"/>
-
-					<div class="content">
-						<h4 class="mt-4 mb-0"><a href="doctor-single.html">Marshal Root</a></h4>
-						<p>Surgeon, Сardiologist</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-6 col-sm-6">
-				<div class="team-block mb-5 mb-lg-0">
-					<img src="http://res.cloudinary.com/www-menscarts-shop/image/upload/v1657955813/jen6ovgf5po3d0mufuta.jpg" alt="" class="img-fluid w-100"/>
-
-					<div class="content">
-						<h4 class="mt-4 mb-0"><a href="doctor-single.html">Siamon john</a></h4>
-						<p>Internist, General Practitioner</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 col-sm-6">
-				<div class="team-block">
-					<img src="http://res.cloudinary.com/www-menscarts-shop/image/upload/v1657955845/lbtxyubnisllqw5pk8ze.jpg" alt="" class="img-fluid w-100"/>
-
-					<div class="content">
-						<h4 class="mt-4 mb-0"><a href="doctor-single.html">Rishat Ahmed</a></h4>
-						<p>Orthopedic Surgeon</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 
 
     </div>

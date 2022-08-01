@@ -131,18 +131,11 @@ function ViewallDoctor() {
 
           <div class="col-12 text-center  mb-5">
             <div class="btn-group btn-group-toggle " data-toggle="buttons">
-              <label class="btn active ">
-                <input
-                  type="radio"
-                  name="shuffle-filter"
-                  value="all"
-                  checked="checked"
-                />
-                All Department
-              </label>
+         
               {department.map((obj) => {
+
                 return (
-                  <label class="btn ">
+                  <label class="btn">
                     <input
                       type="radio"
                       name="shuffle-filter"
@@ -196,12 +189,12 @@ function ViewallDoctor() {
           </div>
         </div>
       </section>
-
+{/* 
       <section class="section cta-page">
         <div class="container">
           <div class="row">
             <div class="col-lg-7">
-              <div class="cta-content">
+              <div class="cta-content mb-5">
                 <div class="divider mb-4"></div>
                 <h2 class="mb-5 text-lg">
                   We are pleased to offer you the{" "}
@@ -214,7 +207,7 @@ function ViewallDoctor() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <div className="container"></div>
     </>
   );
