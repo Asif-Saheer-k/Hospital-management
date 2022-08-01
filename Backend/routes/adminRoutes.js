@@ -12,7 +12,8 @@ const {
   addDepartment,
   viewDepartment,
   deleteDepartment,
-  viewFullAppintment
+  viewFullAppintment,
+  viewAllTodayAppointment
 } = require("../Controllers/adminControllers");
 const { viewAllNumberPatient } = require("../Controllers/userControllers");
 const { verifyToken } = require("../middleware/jwtcheck");
@@ -30,4 +31,5 @@ router.route("/view-department").get(viewDepartment)
 router.route("/delete/department").delete(verifyToken,deleteDepartment)
 router.route("/view-all-patients").get(viewAllNumberPatient)
 router.route("/view-all-Appointment").get(viewFullAppintment)
+router.route('/view-today-appointments').get(viewAllTodayAppointment)
 module.exports = router;

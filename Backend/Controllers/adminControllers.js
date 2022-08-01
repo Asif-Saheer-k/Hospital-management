@@ -151,6 +151,17 @@ const viewFullAppintment = asyncHandler(async(req,res)=>{
   }
 
 })
+const viewAllTodayAppointment=asyncHandler(async(req,res)=>{
+  const pick = new Date();
+  const date = pick.toLocaleDateString("en-CA");
+  const appointment=await Patient.find({date})
+  if(appointment){
+    res.status(200).json(appointment)
+  }else{
+    res.status(400).json({error:"NO Appoitment"})
+  }
+
+})
 module.exports = {
   adminLOgin,
   viewAllUser,
@@ -163,5 +174,6 @@ module.exports = {
   addDepartment,
   viewDepartment,
   deleteDepartment,
-  viewFullAppintment
+  viewFullAppintment,
+  viewAllTodayAppointment
 };
