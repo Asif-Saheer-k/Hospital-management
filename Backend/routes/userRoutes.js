@@ -16,7 +16,7 @@ const {
   deleteAppointment,
   updateUserProfile,
   viewAllNumberPatient
-} = require("../controllers/userControllers");
+} = require("../Controllers/userControllers");
 
 router.route("/register").post(registerUser);
 router.route("/login").post(verifyUser);
