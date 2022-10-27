@@ -84,8 +84,9 @@ const verifyDoctor = asyncHandler(async (req, res) => {
 
 const viewAllAppointment = asyncHandler(async (req, res) => {
   const doctorId = req.params.id;
+  const valid=true
 
-  const Patients = await Patient.find({ doctorId });
+  const Patients = await Patient.find({ valid,doctorId });
 
   if (Patients) {
     res.status(200).json(Patients);

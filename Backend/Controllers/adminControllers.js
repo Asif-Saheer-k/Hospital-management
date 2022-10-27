@@ -147,7 +147,7 @@ const viewFullAppintment = asyncHandler(async(req,res)=>{
     console.log(Allappointment);
     res.status(200).json(Allappointment)
   }else{
-    res.status(400).json({erro:'error occure'})
+    res.status(400).json({error:'error occure'})
   }
 
 })
