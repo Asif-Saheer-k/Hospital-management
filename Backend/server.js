@@ -5,6 +5,7 @@ const userRoutes = require("./routes/userRoutes");
 const doctorsRoutes = require("./routes/doctorRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const socketio = require("socket.io");
+const path=require('path')
 const http = require("http");
 
 const app = express();
@@ -20,7 +21,13 @@ app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/doctor", doctorsRoutes);
 
-
+__dirname =path.resolve()   
+if(process.env.NODE_ENV==="production"){
+  app.use(express.static(path.join(__dirname,"/frontend/build")));
+  app.get("*",(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'frontend','build','index.html'))
+  })
+}  
 
 
 server.listen(PORT, console.log(`server started on port ${PORT}`));
